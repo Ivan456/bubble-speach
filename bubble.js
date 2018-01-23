@@ -49,17 +49,20 @@ class Bubble {
         r = x + w,
         b = y + h,
         con1,
-        con2;
+        con2,
+		wideBaseTriangle;
 
         this.pointer.x -= this.pointer.radius
         this.pointer.y -= this.pointer.radius
+		
+		wideBaseTriangle = w * 0.15;
 
         if (this.pointer.y < y || this.pointer.y > y + h) {
-            con1 = Math.min(Math.max(x + radius, this.pointer.x - 15), r - radius - 30);
-            con2 = Math.min(Math.max(x + radius + 30, this.pointer.x + 15), r - radius);
+            con1 = Math.min(Math.max(x + radius, this.pointer.x - wideBaseTriangle/2), r - radius - wideBaseTriangle);
+            con2 = Math.min(Math.max(x + radius + wideBaseTriangle, this.pointer.x + wideBaseTriangle/2), r - radius);
         } else {
-            con1 = Math.min(Math.max(y + radius, this.pointer.y - 15), b - radius - 30);
-            con2 = Math.min(Math.max(y + radius + 30, this.pointer.y + 15), b - radius);
+            con1 = Math.min(Math.max(y + radius, this.pointer.y - 15), b - radius - wideBaseTriangle);
+            con2 = Math.min(Math.max(y + radius + wideBaseTriangle, this.pointer.y + wideBaseTriangle/2), b - radius);
         }
 
         let dir;
