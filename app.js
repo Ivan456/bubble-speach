@@ -6,11 +6,13 @@ let bubbleOptions = {
     h: 80,
     lineWidth: 2,
     lineColor: "green",
-    backgroundColor: "red"}
+    backgroundColor: "red"
+};
+
 let pointerOptions = {
     x: 50,
     y: 50,
-    radius: 8,
+    radius: 4,
     color: "blue",
 };
 
