@@ -31,6 +31,9 @@ class Pointer {
         this.pointer.on('moving', (options) => {
             this.moving(options);
         });
+        this.pointer.on('modified', (options) => {
+            this.hide();
+        });
     }
 
     update() {
