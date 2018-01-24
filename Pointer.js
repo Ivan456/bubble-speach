@@ -8,6 +8,7 @@ class Pointer {
         this.radius = pointerOptions.radius;
         this.color = pointerOptions.color;
         this.pointer = {};
+        this.hidden = pointerOptions.hidden || true;
 
         this.innerText = {};
         this.group = {};
@@ -31,9 +32,6 @@ class Pointer {
         this.pointer.on('moving', (options) => {
             this.moving(options);
         });
-        this.pointer.on('modified', (options) => {
-            this.hide();
-        });
     }
 
     update() {
@@ -46,11 +44,15 @@ class Pointer {
     }
 
     show() {
-        this.canvas.add(this.pointer);
+        if (this.hidden) {
+            this.canvas.add(this.pointer);
+            this.hidden = false;
+        }
     }
 
     hide() {
         this.canvas.remove(this.pointer);
+        this.hidden = true;
     }
 
     moving(options) {
