@@ -49,17 +49,22 @@ class Bubble {
         r = x + w,
         b = y + h,
         con1,
-        con2;
+        con2,
+		wideBaseTriangle;
 
         this.pointer.x -= this.pointer.radius
         this.pointer.y -= this.pointer.radius
+		
+		
 
         if (this.pointer.y < y || this.pointer.y > y + h) {
-            con1 = Math.min(Math.max(x + radius, this.pointer.x - 10), r - radius - 20);
-            con2 = Math.min(Math.max(x + radius + 20, this.pointer.x + 10), r - radius);
+			wideBaseTriangle = w * 0.15;
+            con1 = Math.min(Math.max(x + radius, this.pointer.x - wideBaseTriangle/2), r - radius - wideBaseTriangle);
+            con2 = Math.min(Math.max(x + radius + wideBaseTriangle, this.pointer.x + wideBaseTriangle/2), r - radius);
         } else {
-            con1 = Math.min(Math.max(y + radius, this.pointer.y - 10), b - radius - 20);
-            con2 = Math.min(Math.max(y + radius + 20, this.pointer.y + 10), b - radius);
+			wideBaseTriangle = h * 0.25;
+            con1 = Math.min(Math.max(y + radius, this.pointer.y - wideBaseTriangle/2), b - radius - wideBaseTriangle);
+            con2 = Math.min(Math.max(y + radius + wideBaseTriangle, this.pointer.y + wideBaseTriangle/2), b - radius);
         }
 
         let dir;
@@ -143,7 +148,7 @@ class Bubble {
         this.pointer.x += options.e.movementX;
         this.pointer.y += options.e.movementY;
 
-        this.pointer.update();
+        this.pointer.update();//если закоментить точка будет на одном месте
     }
 
     show() {
