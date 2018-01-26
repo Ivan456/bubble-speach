@@ -55,8 +55,6 @@ class Bubble {
         this.pointer.x -= this.pointer.radius
         this.pointer.y -= this.pointer.radius
 		
-		
-
         if (this.pointer.y < y || this.pointer.y > y + h) {
 			wideBaseTriangle = w * 0.15;
             con1 = Math.min(Math.max(x + radius, this.pointer.x - wideBaseTriangle/2), r - radius - wideBaseTriangle);
@@ -79,7 +77,7 @@ class Bubble {
         this.moveTo(x + radius, y);
         if (dir == 2) {
             this.lineTo(con1, y);
-            this.lineTo(this.pointer.x, this.pointer.y);
+            this.lineTo(this.pointer.x + 15, this.pointer.y + 15);
             this.lineTo(con2, y);
             this.lineTo(r - radius, y);
         } else this.lineTo(r - radius, y);
