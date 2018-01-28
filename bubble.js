@@ -14,7 +14,7 @@ class Bubble {
         this.backgroundColor = bubbleOptions.backgroundColor;
         this.lineColor = bubbleOptions.lineColor;
         this.lineWidth = bubbleOptions.lineWidth;
-
+		this.direction;
 
     }
 
@@ -51,6 +51,8 @@ class Bubble {
         con1,
         con2,
 		wideBaseTriangle;
+		
+		console.log("generatePath");
 
         this.pointer.x -= this.pointer.radius
         this.pointer.y -= this.pointer.radius
@@ -67,17 +69,17 @@ class Bubble {
 
         let dir;
 
-        if (this.pointer.y < y) dir = 2;
-        if (this.pointer.y > y) dir = 3;
-        if (this.pointer.x < x && this.pointer.y >= y && this.pointer.y <= b) dir = 0;
-        if (this.pointer.x > x && this.pointer.y >= y && this.pointer.y <= b) dir = 1;
+        if (this.pointer.y < y){ dir = 2; this.direction = 2;}
+        if (this.pointer.y > y){ dir = 3; this.direction = 3;}
+        if (this.pointer.x < x && this.pointer.y >= y && this.pointer.y <= b){ dir = 0; this.direction = 0;}
+        if (this.pointer.x > x && this.pointer.y >= y && this.pointer.y <= b){ dir = 1; this.direction = 1;}
         if (this.pointer.x >= x && this.pointer.x <= r && this.pointer.y >= y && this.pointer.y <= b) dir = -1;
 
         this.beginPath();
         this.moveTo(x + radius, y);
         if (dir == 2) {
             this.lineTo(con1, y);
-            this.lineTo(this.pointer.x + 15, this.pointer.y + 15);
+            this.lineTo(this.pointer.x, this.pointer.y);
             this.lineTo(con2, y);
             this.lineTo(r - radius, y);
         } else this.lineTo(r - radius, y);
@@ -115,11 +117,14 @@ class Bubble {
             this.moving(options);
         });
         this.bubble.on('scaling', (options) => {
-            this.moving(options);
+            this.scaling(options);
         });
         this.bubble.on('selected', (options) => {
             this.pointer.show();
         });
+		this.canvas.on('mouse:up', (options) => {
+			 this.scaling(options);
+		});
     }
 
     create() {
@@ -145,9 +150,68 @@ class Bubble {
         this.y += options.e.movementY;
         this.pointer.x += options.e.movementX;
         this.pointer.y += options.e.movementY;
-
+		
+		
+		//console.log("oCoord x " + bubble.bubble.bubble.oCoords.tl.x, "oCoord y" + bubble.bubble.bubble.oCoords.tl.y);
+		//console.log("x" + this.fabricPathText[0][1], "y" + this.fabricPathText[0][2]);
         this.pointer.update();//если закоментить точка будет на одном месте
     }
+	
+	scaling(options) {
+		
+		//bubble.canvas.renderAll();
+        this.x += options.e.movementX;
+        this.y += options.e.movementY;
+        //this.pointer.x = bubble.bubble.bubble.oCoords.tl.x ;
+        //this.pointer.y = bubble.bubble.bubble.oCoords.tl.y ;
+		
+		//this.fabricPathText[0][1] = bubble.bubble.bubble.oCoords.tl.x;
+		//this.fabricPathText[0][2] = bubble.bubble.bubble.oCoords.tl.y;
+		console.log("oCoord x " + bubble.bubble.bubble.oCoords.tl.x, "oCoord y" + bubble.bubble.bubble.oCoords.tl.y);
+		if(this.direction == 0 ){
+			
+			this.pointer.x = bubble.bubble.bubble.oCoords.tl.x - 10;
+			let k;
+			k = ( -bubble.bubble.bubble.oCoords.tl.y + bubble.bubble.bubble.oCoords.bl.y)/( this.fabricPathText[6][2] - this.fabricPathText[11][2]  );
+			this.pointer.y =k * (this.fabricPathText[8][2]  - this.fabricPathText[11][2] ) + bubble.bubble.bubble.oCoords.tl.y; 
+		}
+		if(this.direction == 2  ){
+			this.pointer.y = bubble.bubble.bubble.oCoords.tl.y - 10;
+			if(this.fabricPathText[2][1] > this.fabricPathText[11][1] && this.fabricPathText[2][1] < this.fabricPathText[5][1] ){ 
+				let k;
+				k = ( -bubble.bubble.bubble.oCoords.tl.x + bubble.bubble.bubble.oCoords.tr.x)/( this.fabricPathText[5][1] - this.fabricPathText[11][1]  );
+				this.pointer.x =k * (this.fabricPathText[2][1]  - this.fabricPathText[11][1] ) + bubble.bubble.bubble.oCoords.tl.x - 10; 
+			} else if( this.fabricPathText[2][1] < this.fabricPathText[11][1]){
+				this.pointer.x = bubble.bubble.bubble.oCoords.tl.x - 10;
+			} else if( this.fabricPathText[2][1] > this.fabricPathText[5][1] ){
+				this.pointer.x = bubble.bubble.bubble.oCoords.tr.x - 10;
+			}
+				
+		}
+		if(this.direction == 1 ){
+				this.pointer.x = bubble.bubble.bubble.oCoords.tl.x - 10;
+			let k;
+			k = ( -bubble.bubble.bubble.oCoords.tl.y + bubble.bubble.bubble.oCoords.bl.y)/( this.fabricPathText[6][2] - this.fabricPathText[11][2]  );
+			this.pointer.y =k * (this.fabricPathText[8][2]  - this.fabricPathText[11][2] ) + bubble.bubble.bubble.oCoords.tl.y; 
+				
+		}
+		if(this.direction == 3 ){
+			this.pointer.y = bubble.bubble.bubble.oCoords.mb.y;
+			if(this.fabricPathText[6][1] > this.fabricPathText[11][1] && this.fabricPathText[6][1] < this.fabricPathText[5][1] ){ 
+				let k;
+				k = ( -bubble.bubble.bubble.oCoords.bl.x + bubble.bubble.bubble.oCoords.br.x)/( this.fabricPathText[5][1] - this.fabricPathText[11][1]  );
+				this.pointer.x =k * (this.fabricPathText[6][1]  - this.fabricPathText[11][1] ) + bubble.bubble.bubble.oCoords.tl.x; 
+				console.log("pointer" + this.pointer.x);
+			} else if( this.fabricPathText[6][1] < this.fabricPathText[11][1]){
+				this.pointer.x = bubble.bubble.bubble.oCoords.tl.x;
+			} else if( this.fabricPathText[6][1] > this.fabricPathText[5][1] ){
+				this.pointer.x = bubble.bubble.bubble.oCoords.tr.x;
+			}
+				
+		}
+		
+        this.pointer.update();//если закоментить точка будет на одном месте
+	}
 
     show() {
         this.canvas.add(this.bubble);
