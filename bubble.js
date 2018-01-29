@@ -202,6 +202,7 @@ class Bubble {
 		}
 		
         this.pointer.update();
+		}
 
     show() {
         this.canvas.add(this.bubble);
