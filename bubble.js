@@ -152,9 +152,8 @@ class Bubble {
         this.pointer.y += options.e.movementY;
 		
 		
-		//console.log("oCoord x " + bubble.bubble.bubble.oCoords.tl.x, "oCoord y" + bubble.bubble.bubble.oCoords.tl.y);
-		//console.log("x" + this.fabricPathText[0][1], "y" + this.fabricPathText[0][2]);
-        this.pointer.update();//если закоментить точка будет на одном месте
+	
+        this.pointer.update();
     }
 	
 	scaling(options) {
@@ -162,14 +161,7 @@ class Bubble {
 		//bubble.canvas.renderAll();
         this.x += options.e.movementX;
         this.y += options.e.movementY;
-        //this.pointer.x = bubble.bubble.bubble.oCoords.tl.x ;
-        //this.pointer.y = bubble.bubble.bubble.oCoords.tl.y ;
-		
-		//this.fabricPathText[0][1] = bubble.bubble.bubble.oCoords.tl.x;
-		//this.fabricPathText[0][2] = bubble.bubble.bubble.oCoords.tl.y;
-		console.log("oCoord x " + bubble.bubble.bubble.oCoords.tl.x, "oCoord y" + bubble.bubble.bubble.oCoords.tl.y);
 		if(this.direction == 0 ){
-			
 			this.pointer.x = bubble.bubble.bubble.oCoords.tl.x - 10;
 			let k;
 			k = ( -bubble.bubble.bubble.oCoords.tl.y + bubble.bubble.bubble.oCoords.bl.y)/( this.fabricPathText[6][2] - this.fabricPathText[11][2]  );
@@ -189,10 +181,10 @@ class Bubble {
 				
 		}
 		if(this.direction == 1 ){
-				this.pointer.x = bubble.bubble.bubble.oCoords.tl.x - 10;
+			this.pointer.x = bubble.bubble.bubble.oCoords.tr.x + 10;
 			let k;
-			k = ( -bubble.bubble.bubble.oCoords.tl.y + bubble.bubble.bubble.oCoords.bl.y)/( this.fabricPathText[6][2] - this.fabricPathText[11][2]  );
-			this.pointer.y =k * (this.fabricPathText[8][2]  - this.fabricPathText[11][2] ) + bubble.bubble.bubble.oCoords.tl.y; 
+			k = ( -bubble.bubble.bubble.oCoords.tl.y + bubble.bubble.bubble.oCoords.bl.y)/( this.fabricPathText[7][2] - this.fabricPathText[2][2]  );
+			this.pointer.y =k * (this.fabricPathText[4][2]  - this.fabricPathText[2][2] ) + bubble.bubble.bubble.oCoords.tl.y; 
 				
 		}
 		if(this.direction == 3 ){
@@ -201,7 +193,6 @@ class Bubble {
 				let k;
 				k = ( -bubble.bubble.bubble.oCoords.bl.x + bubble.bubble.bubble.oCoords.br.x)/( this.fabricPathText[5][1] - this.fabricPathText[11][1]  );
 				this.pointer.x =k * (this.fabricPathText[6][1]  - this.fabricPathText[11][1] ) + bubble.bubble.bubble.oCoords.tl.x; 
-				console.log("pointer" + this.pointer.x);
 			} else if( this.fabricPathText[6][1] < this.fabricPathText[11][1]){
 				this.pointer.x = bubble.bubble.bubble.oCoords.tl.x;
 			} else if( this.fabricPathText[6][1] > this.fabricPathText[5][1] ){
@@ -210,8 +201,7 @@ class Bubble {
 				
 		}
 		
-        this.pointer.update();//если закоментить точка будет на одном месте
-	}
+        this.pointer.update();
 
     show() {
         this.canvas.add(this.bubble);
