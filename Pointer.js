@@ -49,6 +49,9 @@ class Pointer {
             this.hidden = false;
         }
     }
+	setVisible( b){
+			this.pointer.visible = b;
+	}
 
     hide() {
         this.canvas.remove(this.pointer);

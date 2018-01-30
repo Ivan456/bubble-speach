@@ -116,15 +116,33 @@ class Bubble {
         this.bubble.on('rotating', (options) => {
             this.moving(options);
         });
+		
         this.bubble.on('scaling', (options) => {
-            this.scaling(options);
+			this.pointer.setVisible(false);
+			
+            
         });
+		this.canvas.on('mouse:up', (options) => {
+			
+			this.pointer.setVisible(true);
+			
+			
+			this.scaling(options);
+		});
         this.bubble.on('selected', (options) => {
             this.pointer.show();
         });
-		this.canvas.on('mouse:up', (options) => {
+		/*
+		setInterval((options) => {
+			this.scaling(options);
+		}, 2000);
+		
+		setInterval(this.canvas.on('mouse:move', (options) => {
 			 this.scaling(options);
-		});
+		}));
+		this.canvas.on('mouse:move', (options) => {
+			 
+		});*/
     }
 
     create() {
@@ -157,8 +175,9 @@ class Bubble {
     }
 	
 	scaling(options) {
-		
-		//bubble.canvas.renderAll();
+		//1 setInterval
+		//2 невидимый кружок
+		bubble.canvas.renderAll();
         this.x += options.e.movementX;
         this.y += options.e.movementY;
 		if(this.direction == 0 ){
