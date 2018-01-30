@@ -15,7 +15,6 @@ class Bubble {
         this.lineColor = bubbleOptions.lineColor;
         this.lineWidth = bubbleOptions.lineWidth;
 		this.direction;
-
     }
 
     beginPath() {
@@ -53,9 +52,6 @@ class Bubble {
 		wideBaseTriangle;
 		
 		console.log("generatePath");
-
-        this.pointer.x -= this.pointer.radius
-        this.pointer.y -= this.pointer.radius
 		
         if (this.pointer.y < y || this.pointer.y > y + h) {
 			wideBaseTriangle = w * 0.15;
@@ -69,10 +65,10 @@ class Bubble {
 
         let dir;
 
-        if (this.pointer.y < y){ dir = 2; this.direction = 2;}
-        if (this.pointer.y > y){ dir = 3; this.direction = 3;}
-        if (this.pointer.x < x && this.pointer.y >= y && this.pointer.y <= b){ dir = 0; this.direction = 0;}
-        if (this.pointer.x > x && this.pointer.y >= y && this.pointer.y <= b){ dir = 1; this.direction = 1;}
+        if (this.pointer.y < y){ dir = this.direction = 2;}
+        if (this.pointer.y > y){ dir = this.direction = 3;}
+        if (this.pointer.x < x && this.pointer.y >= y && this.pointer.y <= b){ dir = this.direction = 0;}
+        if (this.pointer.x > x && this.pointer.y >= y && this.pointer.y <= b){ dir = this.direction = 1;}
         if (this.pointer.x >= x && this.pointer.x <= r && this.pointer.y >= y && this.pointer.y <= b) dir = -1;
 
         this.beginPath();
@@ -116,37 +112,20 @@ class Bubble {
         this.bubble.on('rotating', (options) => {
             this.moving(options);
         });
-		
-        this.bubble.on('scaling', (options) => {
+		this.bubble.on('scaling', (options) => {
 			this.pointer.setVisible(false);
-			
-            
         });
-		this.canvas.on('mouse:up', (options) => {
-			
-			this.pointer.setVisible(true);
-			
-			
-			this.scaling(options);
-		});
+        this.bubble.on('modified', (options) => {
+            this.pointer.setVisible(true);
+        });
         this.bubble.on('selected', (options) => {
+            this.scaling(options);
             this.pointer.show();
         });
-		/*
-		setInterval((options) => {
-			this.scaling(options);
-		}, 2000);
-		
-		setInterval(this.canvas.on('mouse:move', (options) => {
-			 this.scaling(options);
-		}));
-		this.canvas.on('mouse:move', (options) => {
-			 
-		});*/
     }
 
     create() {
-        this.generatePath() 
+        this.generatePath();
         this.bubble = new fabric.Path(this.fabricPathText);
         this.setEvents();
 
@@ -155,6 +134,7 @@ class Bubble {
             fill: this.backgroundColor,
             stroke: this.lineColor
         });
+
         this.show();
     }
 
@@ -164,19 +144,17 @@ class Bubble {
     }
 
     moving(options) {
+        this.pointer.setVisible(false);
+
         this.x += options.e.movementX;
         this.y += options.e.movementY;
         this.pointer.x += options.e.movementX;
         this.pointer.y += options.e.movementY;
-		
-		
 	
         this.pointer.update();
     }
 	
 	scaling(options) {
-		//1 setInterval
-		//2 невидимый кружок
 		bubble.canvas.renderAll();
         this.x += options.e.movementX;
         this.y += options.e.movementY;
@@ -184,26 +162,25 @@ class Bubble {
 			this.pointer.x = bubble.bubble.bubble.oCoords.tl.x - 10;
 			let k;
 			k = ( -bubble.bubble.bubble.oCoords.tl.y + bubble.bubble.bubble.oCoords.bl.y)/( this.fabricPathText[6][2] - this.fabricPathText[11][2]  );
-			this.pointer.y =k * (this.fabricPathText[8][2]  - this.fabricPathText[11][2] ) + bubble.bubble.bubble.oCoords.tl.y; 
+			this.pointer.y = k * (this.fabricPathText[8][2]  - this.fabricPathText[11][2] ) + bubble.bubble.bubble.oCoords.tl.y; 
 		}
-		if(this.direction == 2  ){
+		if(this.direction == 2){
 			this.pointer.y = bubble.bubble.bubble.oCoords.tl.y - 10;
 			if(this.fabricPathText[2][1] > this.fabricPathText[11][1] && this.fabricPathText[2][1] < this.fabricPathText[5][1] ){ 
 				let k;
 				k = ( -bubble.bubble.bubble.oCoords.tl.x + bubble.bubble.bubble.oCoords.tr.x)/( this.fabricPathText[5][1] - this.fabricPathText[11][1]  );
-				this.pointer.x =k * (this.fabricPathText[2][1]  - this.fabricPathText[11][1] ) + bubble.bubble.bubble.oCoords.tl.x - 10; 
-			} else if( this.fabricPathText[2][1] < this.fabricPathText[11][1]){
-				this.pointer.x = bubble.bubble.bubble.oCoords.tl.x - 10;
+				this.pointer.x = k * (this.fabricPathText[2][1]  - this.fabricPathText[11][1] ) + bubble.bubble.bubble.oCoords.tl.x - 10; 
+            } else if( this.fabricPathText[2][1] < this.fabricPathText[11][1]){
+                this.pointer.x = bubble.bubble.bubble.oCoords.tl.x - 10;
 			} else if( this.fabricPathText[2][1] > this.fabricPathText[5][1] ){
-				this.pointer.x = bubble.bubble.bubble.oCoords.tr.x - 10;
-			}
-				
+                this.pointer.x = bubble.bubble.bubble.oCoords.tr.x - 10;
+			}	
 		}
 		if(this.direction == 1 ){
 			this.pointer.x = bubble.bubble.bubble.oCoords.tr.x + 10;
 			let k;
 			k = ( -bubble.bubble.bubble.oCoords.tl.y + bubble.bubble.bubble.oCoords.bl.y)/( this.fabricPathText[7][2] - this.fabricPathText[2][2]  );
-			this.pointer.y =k * (this.fabricPathText[4][2]  - this.fabricPathText[2][2] ) + bubble.bubble.bubble.oCoords.tl.y; 
+			this.pointer.y = k * (this.fabricPathText[4][2]  - this.fabricPathText[2][2] ) + bubble.bubble.bubble.oCoords.tl.y; 
 				
 		}
 		if(this.direction == 3 ){
@@ -211,17 +188,16 @@ class Bubble {
 			if(this.fabricPathText[6][1] > this.fabricPathText[9][1] && this.fabricPathText[6][1] < this.fabricPathText[4][1] ){ 
 				let k;
 				k = ( -bubble.bubble.bubble.oCoords.bl.x + bubble.bubble.bubble.oCoords.br.x)/( this.fabricPathText[9][1] - this.fabricPathText[4][1]  );
-				this.pointer.x =k * ( -this.fabricPathText[6][1]  + this.fabricPathText[9][1] ) + bubble.bubble.bubble.oCoords.tl.x; 
+				this.pointer.x = k * ( -this.fabricPathText[6][1]  + this.fabricPathText[9][1] ) + bubble.bubble.bubble.oCoords.tl.x; 
 			} else if( this.fabricPathText[6][1] < this.fabricPathText[4][1]){
 				this.pointer.x = bubble.bubble.bubble.oCoords.tl.x;
 			} else if( this.fabricPathText[6][1] > this.fabricPathText[9][1] ){
 				this.pointer.x = bubble.bubble.bubble.oCoords.tr.x;
-			}
-				
-		}
+			}	
+        }
 		
         this.pointer.update();
-		}
+	}
 
     show() {
         this.canvas.add(this.bubble);

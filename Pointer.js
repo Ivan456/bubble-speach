@@ -49,8 +49,9 @@ class Pointer {
             this.hidden = false;
         }
     }
-	setVisible( b){
-			this.pointer.visible = b;
+
+	setVisible(bool) {
+		this.pointer.visible = bool;
 	}
 
     hide() {
