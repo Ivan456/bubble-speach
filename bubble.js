@@ -14,7 +14,14 @@ class Bubble {
         this.backgroundColor = bubbleOptions.backgroundColor;
         this.lineColor = bubbleOptions.lineColor;
         this.lineWidth = bubbleOptions.lineWidth;
-		this.direction;
+        this.direction;
+        
+        this.bordersOptions = {
+            borderColor: 'red',
+            cornerColor: 'green',
+            cornerSize: 4,
+            transparentCorners: false
+          };
     }
 
     beginPath() {
@@ -136,6 +143,7 @@ class Bubble {
             fill: this.backgroundColor,
             stroke: this.lineColor
         });
+        this.bubble.set(this.bordersOptions);
 
         this.show();
     }
@@ -156,25 +164,25 @@ class Bubble {
                 this.pointer.y += options.e.movementY;
 
                 break;
-            case "rotating":
-                let angle = this.bubble.getAngle();
-                let radians = (Math.PI / 180) * angle;
-                let cos = Math.cos(radians);
-                let sin = Math.sin(radians);
-				h = bubble.bubble.bubble.oCoords.ml.y;
-				w = bubble.bubble.bubble.oCoords.mb.x;
-                let pointerX = this.pointer.x;
-                let pointerY = this.pointer.y;
-                let bubbleX = this.x + (w / 2);
-                let bubbleY = this.y + (h / 2);
+            // case "rotating":
+            //     let angle = this.bubble.getAngle();
+            //     let radians = (Math.PI / 180) * angle;
+            //     let cos = Math.cos(radians);
+            //     let sin = Math.sin(radians);
+			// 	h = bubble.bubble.bubble.oCoords.ml.y;
+			// 	w = bubble.bubble.bubble.oCoords.mb.x;
+            //     let pointerX = this.pointer.x;
+            //     let pointerY = this.pointer.y;
+            //     let bubbleX = this.x + (w / 2);
+            //     let bubbleY = this.y + (h / 2);
 
-                    /* let newPointerX = (cos * (pointerX - bubbleX)) + (sin * (pointerY - bubbleY)) + bubbleX;
-                    let newPointerY = (cos * (pointerY - bubbleY)) - (sin * (pointerX - bubbleX)) + bubbleY; */
+            //         /* let newPointerX = (cos * (pointerX - bubbleX)) + (sin * (pointerY - bubbleY)) + bubbleX;
+            //         let newPointerY = (cos * (pointerY - bubbleY)) - (sin * (pointerX - bubbleX)) + bubbleY; */
 
-                this.pointer.x = (cos * (pointerX - bubbleX) - sin * (pointerY - bubbleY) + bubbleX);
-                this.pointer.y = (sin * (pointerX - bubbleX) + cos * (pointerY - bubbleY) + bubbleY);
+            //     this.pointer.x = (cos * (pointerX - bubbleX) - sin * (pointerY - bubbleY) + bubbleX);
+            //     this.pointer.y = (sin * (pointerX - bubbleX) + cos * (pointerY - bubbleY) + bubbleY);
 
-                break;
+            //     break;
         }
 
         this.pointer.update();
