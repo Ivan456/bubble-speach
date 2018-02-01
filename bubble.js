@@ -184,11 +184,11 @@ class Bubble {
 				
 		}
 		if(this.direction == 3 ){
-			this.pointer.y = bubble.bubble.bubble.oCoords.mb.y + 5;
+			this.pointer.y = bubble.bubble.bubble.oCoords.mb.y;
 			if(this.fabricPathText[6][1] > this.fabricPathText[9][1] && this.fabricPathText[6][1] < this.fabricPathText[4][1] ){ 
 				let k;
 				k = ( -bubble.bubble.bubble.oCoords.bl.x + bubble.bubble.bubble.oCoords.br.x)/( this.fabricPathText[9][1] - this.fabricPathText[4][1]  );
-				this.pointer.x = k * ( -this.fabricPathText[6][1]  + this.fabricPathText[9][1] ) + bubble.bubble.bubble.oCoords.tl.x; 
+				this.pointer.x = k * ( -this.fabricPathText[6][1]  + this.fabricPathText[9][1] ) + bubble.bubble.bubble.oCoords.tl.x-9; 
 			} else if( this.fabricPathText[6][1] < this.fabricPathText[4][1]){
 				this.pointer.x = bubble.bubble.bubble.oCoords.tl.x;
 			} else if( this.fabricPathText[6][1] > this.fabricPathText[9][1] ){
