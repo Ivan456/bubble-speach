@@ -19,7 +19,7 @@ class Bubble {
         this.bordersOptions = {
             borderColor: 'red',
             cornerColor: 'green',
-            cornerSize: 4,
+            cornerSize: 7,
             transparentCorners: false
           };
     }
