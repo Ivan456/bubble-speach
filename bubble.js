@@ -14,7 +14,14 @@ class Bubble {
         this.backgroundColor = bubbleOptions.backgroundColor;
         this.lineColor = bubbleOptions.lineColor;
         this.lineWidth = bubbleOptions.lineWidth;
-		this.direction;
+        this.direction;
+        
+        this.bordersOptions = {
+            borderColor: 'red',
+            cornerColor: 'green',
+            cornerSize: 7,
+            transparentCorners: false
+          };
     }
 
     beginPath() {
@@ -136,6 +143,7 @@ class Bubble {
             fill: this.backgroundColor,
             stroke: this.lineColor
         });
+        this.bubble.set(this.bordersOptions);
 
         this.show();
     }
@@ -145,7 +153,7 @@ class Bubble {
         this.create();
     }
 
-    moving(options, eventName) {
+   moving(options, eventName) {
        /* switch (eventName) {
             case "moving":
             case "scaling":*/
@@ -185,7 +193,7 @@ class Bubble {
 	*
 	*/
 	scaling(options) {
-			
+		console.log("scaling");
 		var k;
 		
 		if(this.direction == 0 ){
@@ -278,6 +286,8 @@ class Bubble {
         }
 		
 		
+        this.pointer.update();
+	}
         this.pointer.update();
 	}
 
