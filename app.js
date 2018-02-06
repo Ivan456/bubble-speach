@@ -14,5 +14,7 @@ let pointerOptions = {
     color: "blue",
 };
 
+// (function(){
 let bubble = new BubbleCreator(fabric, bubbleOptions, pointerOptions);
 bubble.init();
+// })()

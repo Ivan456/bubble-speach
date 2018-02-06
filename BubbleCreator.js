@@ -13,8 +13,10 @@ class BubbleCreator {
         this.canvas.on('selection:cleared', (options) => {
             this.pointer.hide();
         });
-        this.canvas.on('mouse:up', (options) => {
+		
+		this.canvas.on('mouse:up', (options) => {
             this.bubble.scaling(options);
 		});
+        
     }
 }
