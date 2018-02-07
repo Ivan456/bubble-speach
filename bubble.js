@@ -145,7 +145,8 @@ class Bubble {
         this.bubble.set({
             strokeWidth: this.lineWidth,
             fill: this.backgroundColor,
-            stroke: this.lineColor
+            stroke: this.lineColor,
+            hasRotatingPoint: false
         });
         this.bubble.set(this.bordersOptions);
 

@@ -41,8 +41,11 @@ class Pointer {
         };
 
         this.pointer.set(pointerConfig);
-        this.hide();
-        this.show();
+        if (this.pointer.hidden === false){
+            this.hide();
+            this.show();
+        }
+
     }
 
     show() {
