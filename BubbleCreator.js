@@ -1,6 +1,6 @@
 class BubbleCreator {
-    constructor(fabric, bubbleOptions, pointerOptions) {
-        this.canvas = new fabric.Canvas('canvas');
+    constructor(fabric, canvas, bubbleOptions, pointerOptions) {
+        this.canvas = canvas;
         this.pointer = new Pointer(this.canvas, pointerOptions);
         this.bubble = new Bubble(this.canvas, bubbleOptions, this.pointer);
         this.pointer.setBubble(this.bubble);

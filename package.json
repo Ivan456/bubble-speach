@@ -1,0 +1,19 @@
+{
+  "name": "bubble-speach",
+  "version": "1.0.0",
+  "description": "html5 canvas fabric.js  bubble bubble-speach",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ivan456/bubble-speach.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ivan456/bubble-speach/issues"
+  },
+  "homepage": "https://github.com/Ivan456/bubble-speach#readme"
+}
