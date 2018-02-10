@@ -57,15 +57,15 @@ class Bubble {
         con1,
         con2,
 		wideBaseTriangle;
-		radius = Math.min(h, w)/5;
+		radius = Math.min(h, w)/4;
 		console.log("generatePath");
 		
         if (this.pointer.y < y || this.pointer.y > y + h) {
-			wideBaseTriangle = w * 0.15;
+			wideBaseTriangle = w * 0.20;
             con1 = Math.min(Math.max(x + radius, this.pointer.x - wideBaseTriangle/2), r - radius - wideBaseTriangle);
             con2 = Math.min(Math.max(x + radius + wideBaseTriangle, this.pointer.x + wideBaseTriangle/2), r - radius);
         } else {
-			wideBaseTriangle = h * 0.25;
+			wideBaseTriangle = h * 0.30;
             con1 = Math.min(Math.max(y + radius, this.pointer.y - wideBaseTriangle/2), b - radius - wideBaseTriangle);
             con2 = Math.min(Math.max(y + radius + wideBaseTriangle, this.pointer.y + wideBaseTriangle/2), b - radius);
         }
