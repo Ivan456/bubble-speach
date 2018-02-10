@@ -7,8 +7,8 @@ var refresh = function () {
 	});
 }
 
-//const refreshButton = document.querySelector("#refreshButton");
-//refreshButton.addEventListener('click', refresh)
+const refreshButton = document.querySelector("#refreshButton");
+refreshButton.addEventListener('click', refresh)
 
 
 
