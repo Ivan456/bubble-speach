@@ -16,7 +16,13 @@ class BubbleCreator {
 		
 		this.canvas.on('mouse:up', (options) => {
             this.bubble.scaling(options);
+		
+		if(this.bubble.bubble.active ){
+				this.pointer.show();
+			} else if ( options.target === null)  {
+				
+				this.pointer.hide();
+			}
 		});
-        
     }
 }
