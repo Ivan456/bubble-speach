@@ -1,4 +1,5 @@
-class Pointer {
+var BubbleCreator = (function() {
+    class Pointer {
     constructor(canvas, pointerOptions) {
         this.canvas = canvas;
 
@@ -132,17 +133,18 @@ class Bubble {
         con2,
 		wideBaseTriangle;
 		radius = Math.min(h, w)/4;
-		console.log("generatePath");
+		//console.log("generatePath");
 		
         if (this.pointer.y < y || this.pointer.y > y + h) {
-			wideBaseTriangle = w * 0.20;
+			wideBaseTriangle = w * 0.3 ;
             con1 = Math.min(Math.max(x + radius, this.pointer.x - wideBaseTriangle/2), r - radius - wideBaseTriangle);
             con2 = Math.min(Math.max(x + radius + wideBaseTriangle, this.pointer.x + wideBaseTriangle/2), r - radius);
         } else {
-			wideBaseTriangle = h * 0.30;
+			wideBaseTriangle = h * 0.3;
             con1 = Math.min(Math.max(y + radius, this.pointer.y - wideBaseTriangle/2), b - radius - wideBaseTriangle);
             con2 = Math.min(Math.max(y + radius + wideBaseTriangle, this.pointer.y + wideBaseTriangle/2), b - radius);
         }
+		console.log("con1" + con1 + "con2" + con2); 
 
         let dir;
 
@@ -187,7 +189,16 @@ class Bubble {
     }
 
     setEvents(){
-		
+        this.canvas.on('object:scaling', (e) => {
+            var o = e.target;
+            if (!o.strokeWidthUnscaled && o.strokeWidth) {
+              o.strokeWidthUnscaled = o.strokeWidth;
+          }
+            if (o.strokeWidthUnscaled) {
+              o.strokeWidth = o.strokeWidthUnscaled / o.scaleX;
+          }
+        })
+        
         this.bubble.on('moving', (options) => {
             this.pointer.setVisible(false);
         });
@@ -390,7 +401,6 @@ class Bubble {
         this.canvas.remove(this.bubble);
     }
 }
-
 class BubbleCreator {
     constructor(fabric, canvas, bubbleOptions, pointerOptions) {
         this.canvas = canvas;
@@ -419,3 +429,5 @@ class BubbleCreator {
 		});
     }
 }
+return BubbleCreator;
+})()
