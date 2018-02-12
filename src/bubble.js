@@ -114,7 +114,16 @@ class Bubble {
     }
 
     setEvents(){
-		
+        this.canvas.on('object:scaling', (e) => {
+            var o = e.target;
+            if (!o.strokeWidthUnscaled && o.strokeWidth) {
+              o.strokeWidthUnscaled = o.strokeWidth;
+          }
+            if (o.strokeWidthUnscaled) {
+              o.strokeWidth = o.strokeWidthUnscaled / o.scaleX;
+          }
+        })
+        
         this.bubble.on('moving', (options) => {
             this.pointer.setVisible(false);
         });
