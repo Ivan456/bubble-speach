@@ -67,8 +67,8 @@ class Pointer {
     }
 
     moving(options) {
-        this.x = options.e.clientX;
-        this.y = options.e.clientY;
+        this.x = options.e.offsetX;
+        this.y = options.e.offsetY;
         this.bubble.update();
     }
 }
