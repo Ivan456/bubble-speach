@@ -58,7 +58,7 @@ class Bubble {
         con2,
 		wideBaseTriangle;
 		radius = Math.min(h, w)/4;
-		//console.log("generatePath");
+		
 		
         if (this.pointer.y < y || this.pointer.y > y + h) {
 			wideBaseTriangle = w * 0.3 ;
@@ -69,7 +69,7 @@ class Bubble {
             con1 = Math.min(Math.max(y + radius, this.pointer.y - wideBaseTriangle/2), b - radius - wideBaseTriangle);
             con2 = Math.min(Math.max(y + radius + wideBaseTriangle, this.pointer.y + wideBaseTriangle/2), b - radius);
         }
-		console.log("con1" + con1 + "con2" + con2); 
+		
 
         let dir;
 
@@ -128,12 +128,12 @@ class Bubble {
             this.pointer.setVisible(false);
         });
         this.bubble.on('rotating', (options) => {
-            console.log('rotating')
+           
 			this.pointer.setVisible(false);
             //this.moving(options, 'rotating');
         });
 		this.bubble.on('scaling', (options) => {
-            console.log('SCALING')
+            
 			this.pointer.setVisible(false);
 			//this.moving(options, 'scaling');
         });
@@ -208,7 +208,7 @@ class Bubble {
 	*
 	*/
 	scaling(options) {
-		console.log("scaling");
+		
 		var k;
 		
 		if(this.direction == 0 ){
