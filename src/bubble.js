@@ -208,10 +208,13 @@ class Bubble {
 	*
 	*/
 	scaling(options) {
-		
+		/*
+		 fabric doesn't change path coordinate during scaling , but changes oCoords 
+		 this method calculates real parameters for generatePath and pointer update methods.
+		*/
 		var k;
 		
-		if(this.direction == 0 ){
+		if(this.direction == 0 ){//pointer middle left 
 			this.pointer.x = this.bubble.oCoords.tl.x - 13;
 			k = ( -this.bubble.oCoords.tl.y + this.bubble.oCoords.bl.y)/( this.fabricPathText[6][2] - this.fabricPathText[11][2]  );
 			this.pointer.y = k * (this.fabricPathText[8][2]  - this.fabricPathText[11][2] ) + this.bubble.oCoords.tl.y - 13;
@@ -225,7 +228,7 @@ class Bubble {
 			
 			//bubble.canvas.renderAll();
 		}
-		if(this.direction == 2){
+		if(this.direction == 2){// pointer top middle
 			let kh = (this.fabricPathText[9][2] - this.fabricPathText[11][2])/(this.fabricPathText[9][2] - this.fabricPathText[2][2]);
 			this.y = this.bubble.oCoords.tl.y + (1-kh)*(this.bubble.oCoords.bl.y - this.bubble.oCoords.tl.y);
 			if(this.fabricPathText[2][1] > this.fabricPathText[11][1] && this.fabricPathText[2][1] < this.fabricPathText[5][1] ){ 
@@ -236,7 +239,7 @@ class Bubble {
 				this.w = (this.bubble.oCoords.tr.x - this.bubble.oCoords.tl.x);
 				this.x = this.bubble.oCoords.tl.x;
 				
-			} else if( this.fabricPathText[2][1] < this.fabricPathText[11][1]){// pointer left
+			} else if( this.fabricPathText[2][1] < this.fabricPathText[11][1]){// pointer top left
 				this.pointer.y = this.bubble.oCoords.tl.y - 14;
                 this.pointer.x = this.bubble.oCoords.tl.x - 13;
 				
@@ -246,7 +249,7 @@ class Bubble {
 				
 				
 				
-			} else if( this.fabricPathText[2][1] > this.fabricPathText[5][1] ){ //pointer right
+			} else if( this.fabricPathText[2][1] > this.fabricPathText[5][1] ){ //pointer top right
 				this.pointer.y = this.bubble.oCoords.tr.y - 14;
                 this.pointer.x = this.bubble.oCoords.tr.x - 5;
 				
@@ -256,7 +259,7 @@ class Bubble {
 			}
 			this.h = (this.bubble.oCoords.bl.y - this.bubble.oCoords.tl.y)*kh;	
 		}
-		if(this.direction == 1 ){
+		if(this.direction == 1 ){// pointer middle right
 			this.pointer.x = this.bubble.oCoords.tr.x ;
 			k = ( -this.bubble.oCoords.tl.y + this.bubble.oCoords.bl.y)/( this.fabricPathText[7][2] - this.fabricPathText[2][2]  );
 			this.pointer.y = k * (this.fabricPathText[4][2]  - this.fabricPathText[2][2] ) + this.bubble.oCoords.tl.y - 10;//center
@@ -271,7 +274,7 @@ class Bubble {
 			
 			
 		}
-		if(this.direction == 3 ){
+		if(this.direction == 3 ){// pointer bottom center
 			this.pointer.y = this.bubble.oCoords.bl.y;
 			let kh = (this.fabricPathText[9][2] - this.fabricPathText[11][2]  )/( this.fabricPathText[6][2] - this.fabricPathText[11][2]);
 			this.h = (this.bubble.oCoords.bl.y - this.bubble.oCoords.tl.y) * kh;
@@ -284,7 +287,7 @@ class Bubble {
 				this.y = this.bubble.oCoords.tl.y;
 				
 				
-			} else if( this.fabricPathText[6][1] < this.fabricPathText[9][1]){//left
+			} else if( this.fabricPathText[6][1] < this.fabricPathText[9][1]){//pointer bottom left
 				let kw = (this.fabricPathText[4][1] - this.fabricPathText[9][1])/( this.fabricPathText[4][1] - this.fabricPathText[6][1]);
 				this.w = (this.bubble.oCoords.br.x - this.bubble.oCoords.bl.x )*kw;
 				
@@ -296,7 +299,7 @@ class Bubble {
 				
 				
 				
-			} else if( this.fabricPathText[6][1] > this.fabricPathText[4][1] ){//right
+			} else if( this.fabricPathText[6][1] > this.fabricPathText[4][1] ){// pointer bottom right
 				let kw = (this.fabricPathText[4][1] - this.fabricPathText[9][1])/( this.fabricPathText[6][1] - this.fabricPathText[9][1]);
 				this.w = (this.bubble.oCoords.br.x - this.bubble.oCoords.bl.x )*kw;
 				
