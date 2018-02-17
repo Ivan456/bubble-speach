@@ -170,44 +170,15 @@ class BubblePath {
     }
 
    moving(options, eventName) {
-       /* switch (eventName) {
-            case "moving":
-            case "scaling":*/
-                this.x += options.e.movementX;
-                this.y += options.e.movementY;
+        this.x += options.e.movementX;
+        this.y += options.e.movementY;
 
-                this.pointer.x += options.e.movementX;
-                this.pointer.y += options.e.movementY;
-			/*
-                break;
-            case "rotating":
-                let angle = this.bubble.getAngle();
-                let radians = (Math.PI / 180) * angle;
-                let cos = Math.cos(radians);
-                let sin = Math.sin(radians);
-				h = this.bubble.oCoords.ml.y;
-				w = this.bubble.oCoords.mb.x;
-                let pointerX = this.pointer.x;
-                let pointerY = this.pointer.y;
-                let bubbleX = this.x + (w / 2);
-                let bubbleY = this.y + (h / 2);
-
-                    /* let newPointerX = (cos * (pointerX - bubbleX)) + (sin * (pointerY - bubbleY)) + bubbleX;
-                    let newPointerY = (cos * (pointerY - bubbleY)) - (sin * (pointerX - bubbleX)) + bubbleY; */
-
-               /* this.pointer.x = (cos * (pointerX - bubbleX) - sin * (pointerY - bubbleY) + bubbleX);
-                this.pointer.y = (sin * (pointerX - bubbleX) + cos * (pointerY - bubbleY) + bubbleY);
-
-                break;
-        }*/
+        this.pointer.x += options.e.movementX;
+        this.pointer.y += options.e.movementY;
 
         this.pointer.update();
     }
-	
-	/**
-	*method written by сicadidae 3301
-	*
-	*/
+
 	scaling(options) {
 		
 		var k;
@@ -223,8 +194,6 @@ class BubblePath {
 			this.w = (this.bubble.oCoords.mr.x- this.bubble.oCoords.ml.x) * kw;
 			this.y =  this.bubble.oCoords.tl.y ;
 			this.x = this.bubble.oCoords.ml.x + (this.bubble.oCoords.mr.x- this.bubble.oCoords.ml.x) * (1-kw);
-			
-			//bubble.canvas.renderAll();
 		}
 		if(this.direction == 2){
 			let kh = (this.fabricPathText[9][2] - this.fabricPathText[11][2])/(this.fabricPathText[9][2] - this.fabricPathText[2][2]);
@@ -313,11 +282,8 @@ class BubblePath {
 				
         }
 		
-		// this.lineWidth = (this.bubble.zoomX + this.bubble.zoomY) ;
-		
         this.pointer.update();
 	}
-  
 
     show() {
         this.canvas.add(this.bubble);
