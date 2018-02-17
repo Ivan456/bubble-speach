@@ -29,6 +29,6 @@ let pointerOptions = {
 };
 
 (function(){
-let bubble = new BubbleCreator(fabric, canvas, bubbleOptions, pointerOptions);
+let bubble = new BubblePath(fabric, canvas, bubbleOptions, pointerOptions);
 bubble.init();
 })()

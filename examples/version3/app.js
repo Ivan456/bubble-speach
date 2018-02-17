@@ -1,4 +1,4 @@
-// (function(){
+(function(){
     let canvas = new fabric.Canvas('canvas');
     let canvas2 = new fabric.Canvas('canvas2');
 
@@ -28,4 +28,4 @@
     };
 
     let bubble = new Bubble(fabric, canvas, bubbleOptions, pointerOptions);
-// })()
+})()

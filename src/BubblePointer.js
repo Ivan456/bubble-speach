@@ -1,5 +1,6 @@
-class Pointer {
+class BubblePointer {
     constructor(canvas, pointerOptions) {
+        this.id = 'BubblePointer' + Date.now();
         this.canvas = canvas;
 
         this.hasControls = false;
