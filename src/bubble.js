@@ -2,7 +2,7 @@ class Bubble {
     constructor(canvas, bubbleOptions, pointer) {
         this.canvas = canvas;
         this.pointer = pointer;
-
+		this.text;
         this.x = bubbleOptions.x;
         this.y = bubbleOptions.y;
         this.w = bubbleOptions.w;
@@ -151,12 +151,22 @@ class Bubble {
         this.generatePath();
         this.bubble = new fabric.Path(this.fabricPathText);
         this.setEvents();
+		
+		this.bubble.text = 'XYN';
+		this.text = new fabric.Textbox("I'm at fontSize 20", {
+				left: this.x,
+				top:this.y,
+				width: this.w * 0.75,
+				fontSize: this.h/5,
+		});
+		
 
         this.bubble.set({
             strokeWidth: this.lineWidth,
             fill: this.backgroundColor,
             stroke: this.lineColor,
-            hasRotatingPoint: false
+            hasRotatingPoint: false,
+			lockScalingFlip: true
         });
         this.bubble.set(this.bordersOptions);
 
@@ -310,22 +320,33 @@ class Bubble {
 				this.y = this.bubble.oCoords.tl.y;
 				
 			}
-			
-			
 				
         }
-		
+		this.textUpdate();
 		// this.lineWidth = (this.bubble.zoomX + this.bubble.zoomY) ;
-		
         this.pointer.update();
 	}
   
 
     show() {
         this.canvas.add(this.bubble);
+		this.canvas.add(this.text);
     }
+	
+	textUpdate(){
+		var textConfig = {
+            left: this.x,
+            top: this.y,
+			width: this.w*0.75,
+			fontSize: this.h/5
+        };
+
+        this.text.set(textConfig);
+	}
+	
 
     hide() {
         this.canvas.remove(this.bubble);
+		this.canvas.remove(this.text);
     }
 }
