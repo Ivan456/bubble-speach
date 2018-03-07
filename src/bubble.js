@@ -23,6 +23,31 @@ class Bubble {
             transparentCorners: false
           };
     }
+	
+	refresh () {
+	//var data = JSON.stringify(canvas.toObject([]));
+	var objForJson;
+	console.log("x" + this.bubble.x);
+	objForJson.x = bubble.bubble.x
+	
+	//console.log(data);
+	//console.log(data[0]);
+	//console.log(data['objects'][0]);
+	canvas.clear();
+	var obj = JSON.parse(data);
+	console.log( data);
+	console.log( obj.objects[0].type);
+	console.log( obj.objects[1].type);
+	
+	console.log(obj.objects[0].left);
+	console.log(obj.objects[0].top);
+	(function(){
+		let bubble = new BubbleCreator(fabric, canvas, bubbleOptions, pointerOptions);
+		bubble.init();
+	})()
+}
+
+
 
     beginPath() {
         this.fabricPathText = [];

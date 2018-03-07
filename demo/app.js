@@ -2,9 +2,7 @@ let canvas = new fabric.Canvas('canvas')
 
 var refresh = function () {
 	var data = JSON.stringify(canvas.toObject([]));
-	canvas.loadFromJSON(data, function(){
-		canvas.renderAll();
-	});
+	context.clearRect(0, 0, canvas.width, canvas.height);
 }
 
 const refreshButton = document.querySelector("#refreshButton");
