@@ -30,7 +30,6 @@ var refresh = function () {
 	
 	
 	var data = JSON.stringify(canvas);
-	console.log(data);
 	canvas.clear();
 	canvas.loadFromJSON(data);
 	canvas.renderAll();

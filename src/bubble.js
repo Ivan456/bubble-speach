@@ -148,22 +148,44 @@ class Bubble {
 		fabric.CustomObject = fabric.util.createClass(fabric.Path, {
 			type: 'CustomObject',
     
-			initialize: function (options) {
+			initialize: function (points, options) {
 				options = options || [];
-				this.callSuper('initialize', options);
+				this.callSuper('initialize',points, options);
+				
+				this.set('borderColor', 'red');
+				this.set('cornerColor', 'green');
+				this.set('cornerSize', 7);
+				this.set('transparentCorners', false);
+				this.set('hasRotatingPoint', false);
+				this.set('lockScalingFlip', true);
+				this.set('strokeWidth', 2);
+				this.set('fill', 'red');
+				this.set('stroke', 'green');
 			},
-		});
+			_render: function (ctx) {
+				this.callSuper('_render', ctx);
 
+		
+				ctx.font = '15px Helvetica';
+				ctx.fillStyle = '#fff';
+				ctx.fillText(11, 220, 220, [20]);
+				ctx.textAlign = 'center';
+			}
+		});
+	
+			
 		fabric.CustomObject.fromObject = function (object, callback) {
-			fabric.Object._fromObject("Path", object, callback, "path");
+			fabric.Object._fromObject("CustomObject", object, callback, 'path');
 		};
+		
+		
         this.bubble = new fabric.CustomObject(this.fabricPathText);
    
 		
 		
 		
 		this.setEvents();
-		
+		/*
         this.bubble.set({
             strokeWidth: this.lineWidth,
             fill: this.backgroundColor,
@@ -171,7 +193,7 @@ class Bubble {
             hasRotatingPoint: false,
 			lockScalingFlip: true
         });
-        this.bubble.set(this.bordersOptions);
+        this.bubble.set(this.bordersOptions);*/
         this.show();
     }
 
