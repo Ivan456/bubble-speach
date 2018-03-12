@@ -2,7 +2,6 @@ class Bubble {
     constructor(canvas, bubbleOptions, pointer) {
         this.canvas = canvas;
         this.pointer = pointer;
-		this.text;
         this.x = bubbleOptions.x;
         this.y = bubbleOptions.y;
         this.w = bubbleOptions.w;
@@ -24,31 +23,6 @@ class Bubble {
           };
     }
 	
-	refresh () {
-	//var data = JSON.stringify(canvas.toObject([]));
-	var objForJson;
-	console.log("x" + this.bubble.x);
-	objForJson.x = bubble.bubble.x
-	
-	//console.log(data);
-	//console.log(data[0]);
-	//console.log(data['objects'][0]);
-	canvas.clear();
-	var obj = JSON.parse(data);
-	console.log( data);
-	console.log( obj.objects[0].type);
-	console.log( obj.objects[1].type);
-	
-	console.log(obj.objects[0].left);
-	console.log(obj.objects[0].top);
-	(function(){
-		let bubble = new BubbleCreator(fabric, canvas, bubbleOptions, pointerOptions);
-		bubble.init();
-	})()
-}
-
-
-
     beginPath() {
         this.fabricPathText = [];
     }
@@ -153,18 +127,13 @@ class Bubble {
             this.pointer.setVisible(false);
         });
         this.bubble.on('rotating', (options) => {
-           
 			this.pointer.setVisible(false);
-            //this.moving(options, 'rotating');
         });
 		this.bubble.on('scaling', (options) => {
-            
 			this.pointer.setVisible(false);
-			//this.moving(options, 'scaling');
         });
         this.bubble.on('modified', (options) => {
             this.pointer.setVisible(true);
-			
         });
         this.bubble.on('selected', (options) => {
             this.scaling(options);
@@ -172,20 +141,29 @@ class Bubble {
         });
     }
 
+
     create() {
         this.generatePath();
-        this.bubble = new fabric.Path(this.fabricPathText);
-        this.setEvents();
 		
-		this.bubble.text = 'XYN';
-		this.text = new fabric.Textbox("I'm at fontSize 20", {
-				left: this.x,
-				top:this.y,
-				width: this.w * 0.75,
-				fontSize: this.h/5,
+		fabric.CustomObject = fabric.util.createClass(fabric.Path, {
+			type: 'CustomObject',
+    
+			initialize: function (options) {
+				options = options || [];
+				this.callSuper('initialize', options);
+			},
 		});
-		
 
+		fabric.CustomObject.fromObject = function (object, callback) {
+			fabric.Object._fromObject("Path", object, callback, "path");
+		};
+        this.bubble = new fabric.CustomObject(this.fabricPathText);
+   
+		
+		
+		
+		this.setEvents();
+		
         this.bubble.set({
             strokeWidth: this.lineWidth,
             fill: this.backgroundColor,
@@ -194,48 +172,12 @@ class Bubble {
 			lockScalingFlip: true
         });
         this.bubble.set(this.bordersOptions);
-
         this.show();
     }
 
     update() {
         this.hide();
         this.create();
-    }
-
-   moving(options, eventName) {
-       /* switch (eventName) {
-            case "moving":
-            case "scaling":*/
-                this.x += options.e.movementX;
-                this.y += options.e.movementY;
-
-                this.pointer.x += options.e.movementX;
-                this.pointer.y += options.e.movementY;
-			/*
-                break;
-            case "rotating":
-                let angle = this.bubble.getAngle();
-                let radians = (Math.PI / 180) * angle;
-                let cos = Math.cos(radians);
-                let sin = Math.sin(radians);
-				h = this.bubble.oCoords.ml.y;
-				w = this.bubble.oCoords.mb.x;
-                let pointerX = this.pointer.x;
-                let pointerY = this.pointer.y;
-                let bubbleX = this.x + (w / 2);
-                let bubbleY = this.y + (h / 2);
-
-                    /* let newPointerX = (cos * (pointerX - bubbleX)) + (sin * (pointerY - bubbleY)) + bubbleX;
-                    let newPointerY = (cos * (pointerY - bubbleY)) - (sin * (pointerX - bubbleX)) + bubbleY; */
-
-               /* this.pointer.x = (cos * (pointerX - bubbleX) - sin * (pointerY - bubbleY) + bubbleX);
-                this.pointer.y = (sin * (pointerX - bubbleX) + cos * (pointerY - bubbleY) + bubbleY);
-
-                break;
-        }*/
-
-        this.pointer.update();
     }
 	
 	/**
@@ -347,31 +289,25 @@ class Bubble {
 			}
 				
         }
-		this.textUpdate();
-		// this.lineWidth = (this.bubble.zoomX + this.bubble.zoomY) ;
+		
         this.pointer.update();
 	}
   
 
     show() {
         this.canvas.add(this.bubble);
-		this.canvas.add(this.text);
     }
 	
-	textUpdate(){
-		var textConfig = {
-            left: this.x,
-            top: this.y,
-			width: this.w*0.75,
-			fontSize: this.h/5
-        };
+	
 
-        this.text.set(textConfig);
-	}
 	
 
     hide() {
         this.canvas.remove(this.bubble);
-		this.canvas.remove(this.text);
     }
+	// добавить некоторые пользоваетельские данные
+	// добавить события к баблу передав туда свой контекст
+	
+	
+
 }

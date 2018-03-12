@@ -1,5 +1,5 @@
 let canvas = new fabric.Canvas('canvas')
-let noteOptions = {
+let bubbleOptions = {
     x: 100,
     y: 100,
     w: 200,
@@ -14,7 +14,7 @@ let pointerOptions = {
     radius: 8,
     color: "blue",
 };
-let bubble = new BubbleCreator(fabric, canvas, noteOptions, pointerOptions);
+let bubble = new BubbleCreator(fabric, canvas, bubbleOptions, pointerOptions);
 
 bubble.init();
 
@@ -26,13 +26,15 @@ var refresh = function () {
 	objToJson.h = bubble.bubble.h;
 	objToJson.pointerX = bubble.pointer.x;
 	objToJson.pointerY = bubble.pointer.y;*/
-	//canvas.clear();
-	
-	
-	var data = JSON.stringify(canvas);
-	console.log(data);
 	canvas.clear();
-	canvas.loadFromJSON(data);
+	var json = '{"objects":[{"angle":0,"backgroundColor":"","clipTo":null,"fill":"#ffa500","fillRule":"nonzero","flipX":false,"flipY":false,"globalCompositeOperation":"source-over","height":29,"left":275.33,"number":"126","opacity":1,"originX":"left","originY":"top","points":[{"x":275.334,"y":199},{"x":275.334,"y":228},{"x":324.75,"y":228},{"x":313.75,"y":199}],"scaleX":1,"scaleY":1,"shadow":null,"skewX":0,"skewY":0,"stroke":null,"strokeDashArray":null,"strokeLineCap":"butt","strokeLineJoin":"miter","strokeMiterLimit":10,"strokeWidth":1,"top":199,"transformMatrix":null,"type":"zone","visible":true,"width":49.42}],"background":""}';
+
+
+	canvas.loadFromJSON(json);
+	canvas.renderAll();
+	var data = JSON.stringify(canvas);
+	canvas.clear();
+	canvas.loadFromJSON(json);
 	canvas.renderAll();
 	/*
 	var data = JSON.stringify(canvas);
@@ -57,13 +59,9 @@ var refresh = function () {
 	})()*/
 }
 
+fabric.Zone = new fabric.util.createClass(fabric.Polygon, {
 
-
-
-
-fabric.Note = new fabric.util.createClass(fabric.Path, {
-
-    type: 'note',
+    type: 'zone',
 
     /**
      * Initializer
@@ -78,11 +76,7 @@ fabric.Note = new fabric.util.createClass(fabric.Path, {
         this.callSuper('initialize', points, options);
 
         // Custom attributes
-        this.set('x', options.x || 'Number not set!');
-		this.set('y', options.y || 'Number not set!');
-		this.set('w', options.w || 'Number not set!');
-		this.set('h', options.h || 'Number not set!');
-		
+        this.set('number', options.number || 'Number not set!');
 
         // Set Defaults
         this.set('angle', options.angle || 0);
@@ -95,8 +89,8 @@ fabric.Note = new fabric.util.createClass(fabric.Path, {
         this.set('lockRotation', options.lockRotation || true);
         this.set('hasBorders', options.hasBorders || false);
 
-        
-        
+        // May change in the future
+        this.set('selectable', options.selectable || true);
     },
 
     /**
@@ -105,19 +99,13 @@ fabric.Note = new fabric.util.createClass(fabric.Path, {
      */
     toObject: function() {
         return fabric.util.object.extend(this.callSuper('toObject'), {
-			x: this.get('x'),
-			y: this.get('y'),
-			w: this.get('w'),
-			h: this.get('h')
+            number: this.get('number')
         });
     },
 
     toJSON: function() {
         return fabric.util.object.extend(this.callSuper('toJSON'), {
-            x: this.get('x'),
-			y: this.get('y'),
-			w: this.get('w'),
-			h: this.get('h')
+            number: this.get('number')
         });
     },
 
@@ -127,18 +115,15 @@ fabric.Note = new fabric.util.createClass(fabric.Path, {
     _render: function (ctx) {
         this.callSuper('_render', ctx);
 
-		
-        /*ctx.font = '15px Helvetica';
+        ctx.font = '15px Helvetica';
         ctx.fillStyle = '#fff';
         ctx.fillText(this.number, -this.width / 2 + 20, -this.height/2 + 20, [20]);
-        ctx.textAlign = 'center';*/
+        ctx.textAlign = 'center';
     }
-	
-
 });
 
-fabric.Note.fromObject = function (object, callback, forceAsync) {
-    return fabric.Object._fromObject('Note', object, callback, forceAsync, ['points'])
+fabric.Zone.fromObject = function (object, callback, forceAsync) {
+    return fabric.Object._fromObject('Zone', object, callback, forceAsync, ['points'])
 };
 
 
