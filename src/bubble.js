@@ -162,15 +162,6 @@ class Bubble {
 				this.set('fill', 'red');
 				this.set('stroke', 'green');
 			},
-			_render: function (ctx) {
-				this.callSuper('_render', ctx);
-
-		
-				ctx.font = '15px Helvetica';
-				ctx.fillStyle = '#fff';
-				ctx.fillText(11, 220, 220, [20]);
-				ctx.textAlign = 'center';
-			}
 		});
 	
 			
@@ -185,15 +176,6 @@ class Bubble {
 		
 		
 		this.setEvents();
-		/*
-        this.bubble.set({
-            strokeWidth: this.lineWidth,
-            fill: this.backgroundColor,
-            stroke: this.lineColor,
-            hasRotatingPoint: false,
-			lockScalingFlip: true
-        });
-        this.bubble.set(this.bordersOptions);*/
         this.show();
     }
 
