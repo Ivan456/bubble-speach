@@ -17,48 +17,58 @@ let pointerOptions = {
 let bubble = new BubbleCreator(fabric, canvas, noteOptions, pointerOptions);
 bubble.init();
 
+const refresh = function () {
+	const data = JSON.stringify(canvas);
 
-var refresh = function () {
-	var data = JSON.stringify(canvas);
 	canvas.clear();
 	canvas.loadFromJSON(data);
 	
 	events();
 }
-	function events(){
-		canvas.on('selection:cleared', (options) => {
-            console.log('this.pointer.hide()');
-        });
+
+function events(){
+	canvas.on('selection:cleared', (options) => {
+        bubble.pointer.hide();
+        console.log('this.pointer.hide()');
+    });
 		
-		canvas.on('mouse:up', (options) => {
-            console.log('this.bubble.scaling(options)');
-		});
-		//TODO add for each and type check 
-		canvas._objects[0].on('moving', (options) => {
-            console.log('this.pointer.setVisible(false)');
-        });
+	canvas.on('mouse:up', (options) => {
+        bubble.bubble.scaling(options);
+        console.log('this.bubble.scaling(options)');
+	});
+	//TODO add for each and type check 
+	canvas._objects[0].on('moving', (options) => {
+        bubble.pointer.setVisible(false);
+        console.log('this.pointer.setVisible(false)');
+    });
 		
-        canvas._objects[0].on('rotating', (options) => {
-			console.log('this.pointer.setVisible(false)');
-        });
+    canvas._objects[0].on('rotating', (options) => {
+        bubble.pointer.setVisible(false);
+		console.log('this.pointer.setVisible(false)');
+    });
 		
-		canvas._objects[0].on('scaling', (options) => {
-			console.log('this.pointer.setVisible(false)');
-        });
+	canvas._objects[0].on('scaling', (options) => {
+        bubble.pointer.setVisible(false);
+		console.log('this.pointer.setVisible(false)');
+    });
 		
-        canvas._objects[0].on('modified', (options) => {
-            console.log('this.pointer.setVisible(true)');
-        });
+    canvas._objects[0].on('modified', (options) => {
+        bubble.pointer.setVisible(true);
+        console.log('this.pointer.setVisible(true)');
+    });
 		
-        canvas._objects[0].on('selected', (options) => {
-             console.log('this.scaling(options)');
-            console.log('this.pointer.show()');
-        });
-	}
+    canvas._objects[0].on('selected', (options) => {
+        bubble.bubble.scaling(options);
+        console.log('this.scaling(options)');
+
+        bubble.pointer.show();
+        console.log('this.pointer.show()');
+    });
+}
 	
 
 const refreshButton = document.querySelector("#refreshButton");
-refreshButton.addEventListener('click', refresh)
+refreshButton.addEventListener('click', refresh);
 
 
 
