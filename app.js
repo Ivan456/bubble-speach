@@ -3,16 +3,12 @@ let noteOptions = {
     x: 100,
     y: 100,
     w: 200,
-    h: 80,
-    lineWidth: 2,
-    lineColor: "green",
-    backgroundColor: "red"}
+    h: 80
+    };
 
 let pointerOptions = {
     x: 50,
-    y: 50,
-    radius: 8,
-    color: "blue",
+    y: 50
 };
 let bubble = new BubbleCreator(fabric, canvas, noteOptions, pointerOptions);
 bubble.init();
@@ -23,9 +19,9 @@ const refresh = function () {
 	canvas.clear();
 	canvas.loadFromJSON(data);
 	
-	events();
+	//events();
 }
-
+/*
 function events(){
 	canvas.on('selection:cleared', (options) => {
         bubble.pointer.hide();
@@ -58,18 +54,17 @@ function events(){
     });
 		
     canvas._objects[0].on('selected', (options) => {
-        bubble.bubble.scaling(options);
-        console.log('this.scaling(options)');
+        //bubble.bubble.scaling(options);
+        //console.log('this.scaling(options)');
 
         bubble.pointer.show();
         console.log('this.pointer.show()');
     });
 }
 	
-
+*/
 const refreshButton = document.querySelector("#refreshButton");
 refreshButton.addEventListener('click', refresh);
-
 
 
 

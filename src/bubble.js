@@ -10,17 +10,7 @@ class Bubble {
         this.fabricPathText = [];
         this.bubble = {};
 
-        this.backgroundColor = bubbleOptions.backgroundColor;
-        this.lineColor = bubbleOptions.lineColor;
-        this.lineWidth = bubbleOptions.lineWidth;
         this.direction;
-        
-        this.bordersOptions = {
-            borderColor: 'red',
-            cornerColor: 'green',
-            cornerSize: 7,
-            transparentCorners: false
-          };
     }
 	
     beginPath() {
@@ -173,8 +163,6 @@ class Bubble {
         this.bubble = new fabric.CustomObject(this.fabricPathText);
    
 		
-		
-		
 		this.setEvents();
         this.show();
     }
@@ -189,10 +177,6 @@ class Bubble {
 	*
 	*/
 	scaling(options) {
-		/*
-		 fabric doesn't change path coordinate during scaling , but changes oCoords 
-		 this method calculates real parameters for generatePath and pointer update methods.
-		*/
 		var k;
 		
 		if(this.direction == 0 ){//pointer middle left 
@@ -309,9 +293,4 @@ class Bubble {
     hide() {
         this.canvas.remove(this.bubble);
     }
-	// добавить некоторые пользоваетельские данные
-	// добавить события к баблу передав туда свой контекст
-	
-	
-
 }
