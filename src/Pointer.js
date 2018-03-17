@@ -1,72 +1,57 @@
 class Pointer {
-    constructor(canvas, pointerOptions) {
+    constructor(canvas) {
         this.canvas = canvas;
 
-        this.hasControls = false;
-        this.x = pointerOptions.x;
-        this.y = pointerOptions.y;
+        this.x ;//= pointerOptions.x;
+        this.y ;//= pointerOptions.y;
         this.pointer = {};
-        this.hidden = pointerOptions.hidden || true;
-
-        this.innerText = {};
-        this.group = {};
+        this.hidden = true;
     }
 
     setBubble(bubble) {
         this.bubble = bubble;
     }
+	
+	init(customCircle){
+		this.pointer = customCircle;
+		this.setEvents();
+		this.x = customCircle.left + 14;
+	    this.y = customCircle.top + 14;
+		this.canvas.add(this.pointer);
+	}
 
     create() {
+		console.log("pointer.create");
         let pointerConfig = {   
             left: this.x,
             top: this.y
         };
 		
-		fabric.CustomCircle = fabric.util.createClass(fabric.Circle, {
-			type: 'CustomCircle',
-    
-			initialize: function (points) {
-				this.callSuper('initialize',points);
-				
-				this.set('radius', 8);
-				this.set('fill', "blue");
-				this.set('hasControls', false);
-				this.set('hasBorders', false);
-			},
-		});
-	
-			
-		fabric.CustomCircle.fromObject = function (object, callback) {
-			fabric.Object._fromObject("CustomCircle", object, callback, 'circle');
-		};
-		
-		
         this.pointer = new fabric.CustomCircle(pointerConfig);
-		
-
-       // this.pointer = new fabric.Circle(pointerConfig);
-        this.pointer.on('moving', (options) => {
+        this.setEvents();
+    }
+	
+	setEvents(){
+		this.pointer.on('moving', (options) => {
             this.moving(options);
         });
-    }
+	}
 
     update() {
+        console.log("pointer.update");
         var pointerConfig = {
             left: this.x,
             top: this.y
         };
-
         this.pointer.set(pointerConfig);
-
-		
         if (this.hidden === false){
             this.hide();
             this.show();
         } 
-
     }
 
     show() {
+		console.log("pointer.show");
         if (this.hidden) {
             this.canvas.add(this.pointer);
             this.hidden = false;
@@ -74,10 +59,12 @@ class Pointer {
     }
 
 	setVisible(bool) {
+		console.log("pointer.visible");
 		this.pointer.visible = bool;
 	}
 
     hide() {
+		console.log("pointer.hide");
         this.canvas.remove(this.pointer);
         this.hidden = true;
     }

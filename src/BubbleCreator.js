@@ -1,14 +1,15 @@
 class BubbleCreator {
-    constructor(fabric, canvas, bubbleOptions, pointerOptions) {
+    constructor(fabric, canvas, bubbleOptions,customCircle) {
         this.canvas = canvas;
-        this.pointer = new Pointer(this.canvas, pointerOptions);
+        this.pointer = new Pointer(this.canvas);
+		this.pointer.init(customCircle);
         this.bubble = new Bubble(this.canvas,bubbleOptions, this.pointer);
         this.pointer.setBubble(this.bubble);
     }
 
-    init() {
-        this.bubble.create();
-        this.pointer.create();
+    init(customObject) {
+        this.bubble.init(customObject);
+        
 
         this.canvas.on('selection:cleared', (options) => {
             this.pointer.hide();

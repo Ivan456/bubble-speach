@@ -1,25 +1,29 @@
 let canvas = new fabric.Canvas('canvas')
-let noteOptions = {
+let noteInitOptions = {
     x: 100,
     y: 100,
     w: 200,
     h: 80
-    };
-
-let pointerOptions = {
-    x: 50,
-    y: 50
 };
-let bubble = new BubbleCreator(fabric, canvas, noteOptions, pointerOptions);
-bubble.init();
+
+let pointerInitOptions = {
+    left: 76,
+    top: 76
+};
+let bubble = new BubbleCreator(fabric, canvas, noteInitOptions, new fabric.CustomCircle().set(pointerInitOptions));
+
+bubble.bubble.generatePath();
+bubble.init(new fabric.CustomObject(bubble.bubble.fabricPathText));
 
 const refresh = function () {
 	const data = JSON.stringify(canvas);
 
 	canvas.clear();
 	canvas.loadFromJSON(data);
+	let bubble = new BubbleCreator(fabric, canvas, noteInitOptions, canvas._objects[1]);
+
 	
-	//events();
+	bubble.init(canvas._objects[0]);
 }
 /*
 function events(){
