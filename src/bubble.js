@@ -3,7 +3,7 @@ class Bubble {
         this.id = 'Bubble' + Date.now();
         this.canvas = canvas;
         this.pointer = new BubblePointer(this.canvas, pointerOptions);
-        this.bubble = new BubblePath(this.canvas, bubbleOptions, this.pointer);
+        this.bubble = new BubblePath(this.canvas, bubbleOptions, this.pointer, fabric);
         this.pointer.setBubble(this.bubble);
         this.init();
     }

@@ -1,5 +1,5 @@
 class BubblePath {
-    constructor(canvas, bubbleOptions, pointer) {
+    constructor(canvas, bubbleOptions, pointer, fabric) {
         this.id = 'BubblePath' + Date.now();
         this.canvas = canvas;
         this.pointer = pointer;
@@ -23,6 +23,40 @@ class BubblePath {
             cornerSize: 7,
             transparentCorners: false
           };
+        
+        this.extendFabricPathBubble(fabric);
+    }
+
+    extendFabricPathBubble(fabric) {
+        let that = this;
+        fabric[that.id] = fabric.util.createClass(fabric.Path, {
+            type: that.id,
+            initialize: function(options) {
+                this.callSuper('initialize', options);
+            },
+            toObject: function(){
+                that.pointer.hide();
+                return { 
+                    type: 'BubblePath',
+                    bubbleOptions: {
+                        x: that.x,
+                        y: that.y,
+                        w: that.w,
+                        h: that.h,
+                        lineWidth: that.lineWidth,
+                        lineColor: that.lineColor,
+                        backgroundColor: that.backgroundColor
+                    },
+                    pointerOptions: {
+                        x: that.pointer.x,
+                        y: that.pointer.y,
+                        radius: that.pointer.radius,
+                        color: that.pointer.color,
+                    }
+                };
+            }
+        });
+        fabric[that.id].async = true;
     }
 
     beginPath() {
@@ -129,18 +163,13 @@ class BubblePath {
             this.pointer.setVisible(false);
         });
         this.bubble.on('rotating', (options) => {
-           
 			this.pointer.setVisible(false);
-            //this.moving(options, 'rotating');
         });
 		this.bubble.on('scaling', (options) => {
-            
 			this.pointer.setVisible(false);
-			//this.moving(options, 'scaling');
         });
         this.bubble.on('modified', (options) => {
             this.pointer.setVisible(true);
-			
         });
         this.bubble.on('selected', (options) => {
             this.scaling(options);
@@ -150,14 +179,14 @@ class BubblePath {
 
     create() {
         this.generatePath();
-        this.bubble = new fabric.Path(this.fabricPathText);
+        this.bubble = new fabric[this.id](this.fabricPathText);
         this.setEvents();
 
         this.bubble.set({
             strokeWidth: this.lineWidth,
             fill: this.backgroundColor,
             stroke: this.lineColor,
-            hasRotatingPoint: false
+            hasRotatingPoint: false,
         });
         this.bubble.set(this.bordersOptions);
 
