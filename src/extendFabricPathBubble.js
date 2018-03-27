@@ -1,5 +1,3 @@
-extendFabricPathBubble(fabric);
-
 function extendFabricPathBubble (fabric) {
     fabric.BubblePath = fabric.util.createClass(fabric.Path, {
         type: 'BubblePath',
