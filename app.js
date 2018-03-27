@@ -1,4 +1,3 @@
-// (function(){
     let canvas = new fabric.Canvas('canvas');
 
     var refresh = function () {
@@ -26,5 +25,4 @@
         color: "blue",
     };
 
-    extendFabricPathBubble(fabric);
     let bubble = new Bubble(fabric, canvas, bubbleOptions, pointerOptions);

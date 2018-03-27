@@ -1,4 +1,17 @@
 var Bubble = (function() {
+    extendFabricPathBubble(fabric);
+    function extendFabricPathBubble (fabric) {
+        fabric.BubblePath = fabric.util.createClass(fabric.Path, {
+            type: 'BubblePath',
+            initialize: function(options) {
+                this.callSuper('initialize', options);
+            }
+        });
+        fabric.BubblePath.fromObject = function ({ bubbleOptions, pointerOptions }, callback) {
+            new Bubble(fabric, canvas, bubbleOptions, pointerOptions);
+            canvas.renderAll();
+        };
+    }
     class BubblePointer {
         constructor(canvas, pointerOptions) {
             this.id = 'BubblePointer' + Date.now();
@@ -74,8 +87,9 @@ var Bubble = (function() {
             this.bubble.update();
         }
     }
+    
     class BubblePath {
-        constructor(canvas, bubbleOptions, pointer) {
+        constructor(canvas, bubbleOptions, pointer, fabric) {
             this.id = 'BubblePath' + Date.now();
             this.canvas = canvas;
             this.pointer = pointer;
@@ -99,6 +113,40 @@ var Bubble = (function() {
                 cornerSize: 7,
                 transparentCorners: false
               };
+            
+            this.extendFabricPathBubble(fabric);
+        }
+    
+        extendFabricPathBubble(fabric) {
+            let that = this;
+            fabric[that.id] = fabric.util.createClass(fabric.Path, {
+                type: that.id,
+                initialize: function(options) {
+                    this.callSuper('initialize', options);
+                },
+                toObject: function(){
+                    that.pointer.hide();
+                    return { 
+                        type: 'BubblePath',
+                        bubbleOptions: {
+                            x: that.x,
+                            y: that.y,
+                            w: that.w,
+                            h: that.h,
+                            lineWidth: that.lineWidth,
+                            lineColor: that.lineColor,
+                            backgroundColor: that.backgroundColor
+                        },
+                        pointerOptions: {
+                            x: that.pointer.x,
+                            y: that.pointer.y,
+                            radius: that.pointer.radius,
+                            color: that.pointer.color,
+                        }
+                    };
+                }
+            });
+            fabric[that.id].async = true;
         }
     
         beginPath() {
@@ -205,18 +253,13 @@ var Bubble = (function() {
                 this.pointer.setVisible(false);
             });
             this.bubble.on('rotating', (options) => {
-               
                 this.pointer.setVisible(false);
-                //this.moving(options, 'rotating');
             });
             this.bubble.on('scaling', (options) => {
-                
                 this.pointer.setVisible(false);
-                //this.moving(options, 'scaling');
             });
             this.bubble.on('modified', (options) => {
                 this.pointer.setVisible(true);
-                
             });
             this.bubble.on('selected', (options) => {
                 this.scaling(options);
@@ -226,14 +269,14 @@ var Bubble = (function() {
     
         create() {
             this.generatePath();
-            this.bubble = new fabric.Path(this.fabricPathText);
+            this.bubble = new fabric[this.id](this.fabricPathText);
             this.setEvents();
     
             this.bubble.set({
                 strokeWidth: this.lineWidth,
                 fill: this.backgroundColor,
                 stroke: this.lineColor,
-                hasRotatingPoint: false
+                hasRotatingPoint: false,
             });
             this.bubble.set(this.bordersOptions);
     
@@ -403,12 +446,13 @@ var Bubble = (function() {
             this.canvas.remove(this.bubble);
         }
     }
+    
     class Bubble {
         constructor(fabric, canvas, bubbleOptions, pointerOptions) {
             this.id = 'Bubble' + Date.now();
             this.canvas = canvas;
             this.pointer = new BubblePointer(this.canvas, pointerOptions);
-            this.bubble = new BubblePath(this.canvas, bubbleOptions, this.pointer);
+            this.bubble = new BubblePath(this.canvas, bubbleOptions, this.pointer, fabric);
             this.pointer.setBubble(this.bubble);
             this.init();
         }
