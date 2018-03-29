@@ -1,17 +1,4 @@
 var Bubble = (function() {
-    extendFabricPathBubble(fabric);
-    function extendFabricPathBubble (fabric) {
-        fabric.BubblePath = fabric.util.createClass(fabric.Path, {
-            type: 'BubblePath',
-            initialize: function(options) {
-                this.callSuper('initialize', options);
-            }
-        });
-        fabric.BubblePath.fromObject = function ({ bubbleOptions, pointerOptions }, callback) {
-            new Bubble(fabric, canvas, bubbleOptions, pointerOptions);
-            canvas.renderAll();
-        };
-    }
     class BubblePointer {
         constructor(canvas, pointerOptions) {
             this.id = 'BubblePointer' + Date.now();
@@ -479,4 +466,16 @@ var Bubble = (function() {
     }
         
 return Bubble;
-})()
+})();
+function extendFabricPathBubble (fabric, canvas) {
+    fabric.BubblePath = fabric.util.createClass(fabric.Path, {
+        type: 'BubblePath',
+        initialize: function(options) {
+            this.callSuper('initialize', options);
+        }
+    });
+    fabric.BubblePath.fromObject = function ({ bubbleOptions, pointerOptions }, callback) {
+        new Bubble(fabric, canvas, bubbleOptions, pointerOptions);
+        canvas.renderAll();
+    };
+}

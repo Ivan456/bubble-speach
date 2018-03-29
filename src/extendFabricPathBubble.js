@@ -1,4 +1,4 @@
-function extendFabricPathBubble (fabric) {
+function extendFabricPathBubble (fabric, canvas) {
     fabric.BubblePath = fabric.util.createClass(fabric.Path, {
         type: 'BubblePath',
         initialize: function(options) {
@@ -6,7 +6,8 @@ function extendFabricPathBubble (fabric) {
         }
     });
     fabric.BubblePath.fromObject = function ({ bubbleOptions, pointerOptions }, callback) {
-        new Bubble(fabric, canvas, bubbleOptions, pointerOptions);
+        let bubble = new Bubble(fabric, canvas, bubbleOptions, pointerOptions);
         canvas.renderAll();
+        // callback && callback();
     };
 }

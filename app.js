@@ -27,3 +27,5 @@ let pointerOptions = {
 
 extendFabricPathBubble(fabric, canvas);
 let bubble = new Bubble(fabric, canvas, bubbleOptions, pointerOptions);
+let bubble2 = new Bubble(fabric, canvas, bubbleOptions, pointerOptions);
+let bubble3 = new Bubble(fabric, canvas, bubbleOptions, pointerOptions);
