@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/Ivan456/bubble-speach/issues"
   },
-  "homepage": "https://github.com/Ivan456/bubble-speach#readme"
+  "homepage": "https://github.com/Ivan456/bubble-speach#readme",
+  "devDependencies": {
+    "standard": "^11.0.1"
+  }
 }

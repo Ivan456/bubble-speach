@@ -1,75 +1,76 @@
 class BubblePointer {
-    constructor(canvas, pointerOptions) {
-        this.id = 'BubblePointer' + Date.now();
-        this.canvas = canvas;
+  constructor (canvas, pointerOptions) {
+    this.id = 'BubblePointer' + Date.now()
+    this.canvas = canvas
 
-        this.hasControls = false;
-        this.x = pointerOptions.x;
-        this.y = pointerOptions.y;
-        this.radius = pointerOptions.radius;
-        this.color = pointerOptions.color;
-        this.pointer = {};
-        this.hidden = pointerOptions.hidden || true;
+    this.hasControls = false
+    this.x = pointerOptions.x
+    this.y = pointerOptions.y
+    this.radius = pointerOptions.radius
+    this.color = pointerOptions.color
+    this.pointer = {}
+    this.hidden = pointerOptions.hidden || true
 
-        this.innerText = {};
-        this.group = {};
+    this.innerText = {}
+    this.group = {}
+  }
+
+  setBubble (bubble) {
+    this.bubble = bubble
+  }
+
+  create () {
+    let pointerConfig = {
+      radius: this.radius,
+      fill: this.color,
+      left: this.x,
+      top: this.y,
+      hasControls: this.hasControls,
+      hasBorders: this.hasControls
     }
 
-    setBubble(bubble) {
-        this.bubble = bubble;
+    this.pointer = new fabric.Circle(pointerConfig)
+    this.pointer.on('moving', (options) => {
+      this.moving(options)
+    })
+    this.pointer.on('mousedown', (options) => {
+      this.setVisible(true)
+    })
+  }
+
+  update () {
+    var pointerConfig = {
+      left: this.x,
+      top: this.y
     }
 
-    create() {
-        let pointerConfig = {   
-            radius: this.radius,
-            fill: this.color,
-            left: this.x,
-            top: this.y,
-            hasControls: this.hasControls,
-            hasBorders: this.hasControls
-        };
+    this.pointer.set(pointerConfig)
 
-        this.pointer = new fabric.Circle(pointerConfig);
-        this.pointer.on('moving', (options) => {
-            this.moving(options);
-        });
+    if (this.hidden === false) {
+      this.hide()
+      this.show()
     }
+  }
 
-    update() {
-        var pointerConfig = {
-            left: this.x,
-            top: this.y
-        };
-
-        this.pointer.set(pointerConfig);
-
-		
-        if (this.hidden === false){
-            this.hide();
-            this.show();
-        } 
-
+  show () {
+    if (this.hidden) {
+      this.canvas.add(this.pointer)
+      this.hidden = false
     }
+  }
 
-    show() {
-        if (this.hidden) {
-            this.canvas.add(this.pointer);
-            this.hidden = false;
-        }
-    }
+  setVisible (bool) {
+    this.pointer.visible = bool
+  }
 
-	setVisible(bool) {
-		this.pointer.visible = bool;
-	}
+  hide () {
+    this.canvas.remove(this.pointer)
+    this.hidden = true
+  }
 
-    hide() {
-        this.canvas.remove(this.pointer);
-        this.hidden = true;
-    }
-
-    moving(options) {
-        this.x = options.e.offsetX;
-        this.y = options.e.offsetY;
-        this.bubble.update();
-    }
+  moving (options) {
+    this.x = options.e.offsetX
+    this.y = options.e.offsetY
+    this.bubble.update()
+  }
 }
