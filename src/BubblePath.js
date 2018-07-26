@@ -110,7 +110,9 @@ class BubblePath {
     if (this.pointer.y > y) { dir = this.direction = 3 }
     if (this.pointer.x < x && this.pointer.y >= y && this.pointer.y <= b) { dir = this.direction = 0 }
     if (this.pointer.x > x && this.pointer.y >= y && this.pointer.y <= b) { dir = this.direction = 1 }
-    if (this.pointer.x >= x && this.pointer.x <= r && this.pointer.y >= y && this.pointer.y <= b) dir = -1
+    if (this.pointer.x >= x && this.pointer.x <= r && this.pointer.y >= y && this.pointer.y <= b) {
+      dir = this.direction = -1
+    }
 
     this.beginPath()
     this.moveTo(x + radius, y)
@@ -291,6 +293,13 @@ class BubblePath {
         this.x = this.bubble.oCoords.tl.x
         this.y = this.bubble.oCoords.tl.y
       }
+    }
+
+    if (this.direction === -1) {
+      this.pointer.x += this.bubble.oCoords.tl.x - this.x
+      this.pointer.y += this.bubble.oCoords.tl.y - this.y 
+      this.x = this.bubble.oCoords.tl.x
+      this.y = this.bubble.oCoords.tl.y
     }
 
     this.pointer.update()

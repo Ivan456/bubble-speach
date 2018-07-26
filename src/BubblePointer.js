@@ -34,6 +34,9 @@ class BubblePointer {
       this.moving(options)
     })
     this.pointer.on('mousedown', (options) => {
+      this.setVisible(false)
+    })
+    this.pointer.on('mouseup', (options) => {
       this.setVisible(true)
     })
   }
