@@ -1,4 +1,4 @@
-class BubblePath {
+export default class BubblePath {
   constructor (canvas, bubbleOptions, pointer, fabric) {
     this.id = 'BubblePath' + Date.now()
     this.canvas = canvas

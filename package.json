@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/Ivan456/bubble-speach#readme",
   "devDependencies": {
-    "standard": "^11.0.1"
+    "standard": "^11.0.1",
+    "webpack": "^4.16.2",
+    "webpack-cli": "^3.1.0"
   }
 }

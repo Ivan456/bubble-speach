@@ -1,4 +1,7 @@
-class Bubble {
+import BubblePath from './BubblePath'
+import BubblePointer from './BubblePointer'
+
+export default class Bubble {
   static create (fabric, canvas, bubbleOptions, pointerOption) {
     return new Bubble(fabric, canvas, bubbleOptions, pointerOptions)
   }

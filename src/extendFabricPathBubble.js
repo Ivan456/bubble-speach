@@ -1,4 +1,4 @@
-function extendFabricPathBubble (fabric, canvas) {
+export default function extendFabricPathBubble (fabric, canvas) {
   canvas.preserveObjectStacking = true
 
   fabric.BubblePath = fabric.util.createClass(fabric.Path, {
