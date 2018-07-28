@@ -4,11 +4,17 @@
   "description": "html5 canvas fabric.js  bubble bubble-speach",
   "main": "app.js",
   "scripts": {
+    "build": "npx webpack --config webpack.config.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Ivan456/bubble-speach.git"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged && eslint ./src"
+    }
   },
   "author": "",
   "license": "ISC",
@@ -17,6 +23,13 @@
   },
   "homepage": "https://github.com/Ivan456/bubble-speach#readme",
   "devDependencies": {
+    "eslint": "^4.19.1",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-plugin-node": "^6.0.1",
+    "eslint-plugin-prettier": "^2.6.2",
+    "husky": "^1.0.0-rc.2",
+    "prettier": "^1.12.1",
+    "pretty-quick": "^1.4.1",
     "standard": "^11.0.1",
     "webpack": "^4.16.2",
     "webpack-cli": "^3.1.0"

@@ -1,5 +1,5 @@
 export default class BubblePointer {
-  constructor (canvas, pointerOptions) {
+  constructor(canvas, pointerOptions) {
     this.id = 'BubblePointer' + Date.now()
     this.canvas = canvas
 
@@ -15,36 +15,36 @@ export default class BubblePointer {
     this.group = {}
   }
 
-  setBubble (bubble) {
+  setBubble(bubble) {
     this.bubble = bubble
   }
 
-  create () {
+  create() {
     let pointerConfig = {
       radius: this.radius,
       fill: this.color,
       left: this.x,
       top: this.y,
       hasControls: this.hasControls,
-      hasBorders: this.hasControls
+      hasBorders: this.hasControls,
     }
 
     this.pointer = new fabric.Circle(pointerConfig)
-    this.pointer.on('moving', (options) => {
+    this.pointer.on('moving', options => {
       this.moving(options)
     })
-    this.pointer.on('mousedown', (options) => {
+    this.pointer.on('mousedown', options => {
       this.setVisible(false)
     })
-    this.pointer.on('mouseup', (options) => {
+    this.pointer.on('mouseup', options => {
       this.setVisible(true)
     })
   }
 
-  update () {
+  update() {
     var pointerConfig = {
       left: this.x,
-      top: this.y
+      top: this.y,
     }
 
     this.pointer.set(pointerConfig)
@@ -55,23 +55,23 @@ export default class BubblePointer {
     }
   }
 
-  show () {
+  show() {
     if (this.hidden) {
       this.canvas.add(this.pointer)
       this.hidden = false
     }
   }
 
-  setVisible (bool) {
+  setVisible(bool) {
     this.pointer.visible = bool
   }
 
-  hide () {
+  hide() {
     this.canvas.remove(this.pointer)
     this.hidden = true
   }
 
-  moving (options) {
+  moving(options) {
     this.x = options.e.offsetX
     this.y = options.e.offsetY
     this.bubble.update()
