@@ -12,7 +12,7 @@ export default function extendFabricPathBubble(fabric, canvas) {
     { bubbleOptions, pointerOptions },
     callback
   ) {
-    let bubble = new Bubble(fabric, canvas, bubbleOptions, pointerOptions)
+    Bubble.create(fabric, canvas, bubbleOptions, pointerOptions)
     callback && callback(null, new Error('error Bubble'))
   }
 }

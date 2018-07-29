@@ -1,6 +1,6 @@
 module.exports = {
   env: {
-    browser: true
+    browser: true,
   },
   extends: ['prettier', 'eslint:recommended'],
   parserOptions: {
@@ -12,5 +12,10 @@ module.exports = {
   plugins: ['node', 'prettier'],
   rules: {
     'prettier/prettier': 'error',
+  },
+  globals: {
+    fabric: true,
+    extendFabricPathBubble: true,
+    Bubble: true,
   },
 }
