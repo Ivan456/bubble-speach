@@ -9,7 +9,7 @@ var refresh = function() {
 const refreshButton = document.querySelector('#refreshButton')
 refreshButton.addEventListener('click', refresh)
 
-let bubbleOptions = {
+const bubbleOptions = {
   x: 200,
   y: 200,
   w: 200,
@@ -19,17 +19,26 @@ let bubbleOptions = {
   backgroundColor: 'red',
 }
 
-let pointerOptions = {
+const pointerOptions = {
   x: 150,
   y: 150,
   radius: 8,
   color: 'blue',
 }
 
+let additioanalProps = {
+  id: 0,
+  anyName: 'anyValue',
+  anyName2: [2],
+}
+
 extendFabricPathBubble(fabric, canvas)
 let i = 3
 while (i--) {
-  Bubble.create(fabric, canvas, bubbleOptions, pointerOptions)
+  Bubble.create(fabric, canvas, bubbleOptions, pointerOptions, additioanalProps)
   bubbleOptions.x += 250
   pointerOptions.x += 250
+
+  additioanalProps = JSON.parse(JSON.stringify(additioanalProps))
+  additioanalProps.id = i
 }

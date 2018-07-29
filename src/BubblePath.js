@@ -1,7 +1,7 @@
 export default class BubblePath {
   constructor(canvas, bubbleOptions, pointer, additioanalProps, fabric) {
     this.id = 'BubblePath' + Date.now()
-    this.additioanalProps = additioanalProps
+    this.additioanalProps = additioanalProps || {}
 
     this.canvas = canvas
     this.pointer = pointer
@@ -55,6 +55,7 @@ export default class BubblePath {
             radius: that.pointer.radius,
             color: that.pointer.color,
           },
+          additioanalProps: this.additioanalProps,
         }
       },
     })
@@ -212,7 +213,7 @@ export default class BubblePath {
     this.setEvents()
 
     this.bubble.set({
-      id: this.id,
+      id: this.additioanalProps.id || this.id,
       additioanalProps: this.additioanalProps,
       strokeWidth: this.lineWidth,
       fill: this.backgroundColor,

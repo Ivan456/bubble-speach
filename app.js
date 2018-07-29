@@ -26,7 +26,8 @@ const pointerOptions = {
   color: 'blue',
 }
 
-const additioanalProps = {
+let additioanalProps = {
+  id: 0,
   anyName: 'anyValue',
   anyName2: [2],
 }
@@ -37,5 +38,7 @@ while (i--) {
   Bubble.create(fabric, canvas, bubbleOptions, pointerOptions, additioanalProps)
   bubbleOptions.x += 250
   pointerOptions.x += 250
-  additioanalProps.anyName2.push(i)
+
+  additioanalProps = JSON.parse(JSON.stringify(additioanalProps))
+  additioanalProps.id = i
 }

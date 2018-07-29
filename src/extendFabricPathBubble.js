@@ -10,10 +10,16 @@ export default function extendFabricPathBubble(fabric, canvas) {
   })
 
   fabric.BubblePath.fromObject = function(
-    { bubbleOptions, pointerOptions },
+    { bubbleOptions, pointerOptions, additioanalProps },
     callback
   ) {
-    Bubble.create(fabric, canvas, bubbleOptions, pointerOptions)
+    Bubble.create(
+      fabric,
+      canvas,
+      bubbleOptions,
+      pointerOptions,
+      additioanalProps
+    )
     callback && callback(null, new Error('error Bubble'))
   }
 }
