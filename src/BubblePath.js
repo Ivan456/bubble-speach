@@ -92,27 +92,27 @@ export default class BubblePath {
       wideBaseTriangle = w * 0.3
       con1 = Math.min(
         Math.max(x + radius, this.pointer.x - wideBaseTriangle / 2),
-        r - radius - wideBaseTriangle,
+        r - radius - wideBaseTriangle
       )
       con2 = Math.min(
         Math.max(
           x + radius + wideBaseTriangle,
-          this.pointer.x + wideBaseTriangle / 2,
+          this.pointer.x + wideBaseTriangle / 2
         ),
-        r - radius,
+        r - radius
       )
     } else {
       wideBaseTriangle = h * 0.3
       con1 = Math.min(
         Math.max(y + radius, this.pointer.y - wideBaseTriangle / 2),
-        b - radius - wideBaseTriangle,
+        b - radius - wideBaseTriangle
       )
       con2 = Math.min(
         Math.max(
           y + radius + wideBaseTriangle,
-          this.pointer.y + wideBaseTriangle / 2,
+          this.pointer.y + wideBaseTriangle / 2
         ),
-        b - radius,
+        b - radius
       )
     }
 
@@ -183,19 +183,19 @@ export default class BubblePath {
         o.strokeWidth = o.strokeWidthUnscaled / o.scaleX
       }
     })
-    this.bubble.on('deselected', options => {
+    this.bubble.on('deselected', () => {
       this.pointer.setVisible(false)
     })
-    this.bubble.on('moving', options => {
+    this.bubble.on('moving', () => {
       this.pointer.setVisible(false)
     })
-    this.bubble.on('rotating', options => {
+    this.bubble.on('rotating', () => {
       this.pointer.setVisible(false)
     })
-    this.bubble.on('scaling', options => {
+    this.bubble.on('scaling', () => {
       this.pointer.setVisible(false)
     })
-    this.bubble.on('modified', options => {
+    this.bubble.on('modified', () => {
       this.pointer.setVisible(true)
     })
     this.bubble.on('selected', options => {
@@ -214,6 +214,7 @@ export default class BubblePath {
       fill: this.backgroundColor,
       stroke: this.lineColor,
       hasRotatingPoint: false,
+      lockScalingFlip: true,
     })
     this.bubble.set(this.bordersOptions)
 
@@ -225,7 +226,7 @@ export default class BubblePath {
     this.create()
   }
 
-  moving(options, eventName) {
+  moving(options) {
     this.x += options.e.movementX
     this.y += options.e.movementY
 
@@ -234,7 +235,7 @@ export default class BubblePath {
     this.pointer.update()
   }
 
-  scaling(options) {
+  scaling() {
     var k
 
     if (this.direction == 0) {

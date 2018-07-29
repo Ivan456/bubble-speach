@@ -7,9 +7,10 @@ export default function extendFabricPathBubble(fabric, canvas) {
       this.callSuper('initialize', options)
     },
   })
+
   fabric.BubblePath.fromObject = function(
     { bubbleOptions, pointerOptions },
-    callback,
+    callback
   ) {
     let bubble = new Bubble(fabric, canvas, bubbleOptions, pointerOptions)
     callback && callback(null, new Error('error Bubble'))

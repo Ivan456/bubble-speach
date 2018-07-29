@@ -14,8 +14,9 @@ export default class Bubble {
       this.canvas,
       bubbleOptions,
       this.pointer,
-      fabric,
+      fabric
     )
+
     this.pointer.setBubble(this.bubble)
     this.init()
 
@@ -26,7 +27,7 @@ export default class Bubble {
     this.bubble.create()
     this.pointer.create()
 
-    this.canvas.on('selection:cleared', options => {
+    this.canvas.on('selection:cleared', () => {
       this.pointer.hide()
     })
 

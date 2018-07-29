@@ -33,10 +33,10 @@ export default class BubblePointer {
     this.pointer.on('moving', options => {
       this.moving(options)
     })
-    this.pointer.on('mousedown', options => {
+    this.pointer.on('mousedown', () => {
       this.setVisible(false)
     })
-    this.pointer.on('mouseup', options => {
+    this.pointer.on('mouseup', () => {
       this.setVisible(true)
     })
   }
