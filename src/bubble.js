@@ -1,5 +1,5 @@
-import BubblePath from './BubblePath'
-import BubblePointer from './BubblePointer'
+import BubblePath from './BubblePath.js'
+import BubblePointer from './BubblePointer.js'
 
 export default class Bubble {
   static create(

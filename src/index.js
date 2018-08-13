@@ -1,5 +1,5 @@
-import Bubble from './bubble'
-import extendFabricPathBubble from './extendFabricPathBubble'
+import Bubble from './bubble.js'
+import extendFabricPathBubble from './extendFabricPathBubble.js'
 
 if (window) {
   window.Bubble = Bubble
