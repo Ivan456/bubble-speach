@@ -22,7 +22,7 @@ const bubbleOptions = {
 const pointerOptions = {
   x: 150,
   y: 150,
-  radius: 8,
+  radius: 20,
   color: 'blue',
 }
 

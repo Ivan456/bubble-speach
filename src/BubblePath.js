@@ -241,17 +241,18 @@ export default class BubblePath {
   }
 
   scaling() {
-    var k
+    let k
+    let pointerDetachLevel = this.pointer.radius / 8
 
     if (this.direction == 0) {
-      this.pointer.x = this.bubble.oCoords.tl.x - 13
+      this.pointer.x = this.bubble.oCoords.tl.x - 13 * pointerDetachLevel
       k =
         (-this.bubble.oCoords.tl.y + this.bubble.oCoords.bl.y) /
         (this.fabricPathText[6][2] - this.fabricPathText[11][2])
       this.pointer.y =
         k * (this.fabricPathText[8][2] - this.fabricPathText[11][2]) +
         this.bubble.oCoords.tl.y -
-        13
+        13 * pointerDetachLevel
 
       this.h = this.bubble.oCoords.mb.y - this.bubble.oCoords.mt.y
       let kw =
@@ -274,21 +275,21 @@ export default class BubblePath {
         this.fabricPathText[2][1] > this.fabricPathText[11][1] &&
         this.fabricPathText[2][1] < this.fabricPathText[5][1]
       ) {
-        this.pointer.y = this.bubble.oCoords.tl.y - 16
+        this.pointer.y = this.bubble.oCoords.tl.y - 16 * pointerDetachLevel
         k =
           (-this.bubble.oCoords.tl.x + this.bubble.oCoords.tr.x) /
           (this.fabricPathText[5][1] - this.fabricPathText[11][1])
         this.pointer.x =
           k * (this.fabricPathText[2][1] - this.fabricPathText[11][1]) +
           this.bubble.oCoords.tl.x -
-          8
+          8 * pointerDetachLevel
 
         this.w = this.bubble.oCoords.tr.x - this.bubble.oCoords.tl.x
         this.x = this.bubble.oCoords.tl.x
       } else if (this.fabricPathText[2][1] < this.fabricPathText[11][1]) {
         // pointer left
-        this.pointer.y = this.bubble.oCoords.tl.y - 14
-        this.pointer.x = this.bubble.oCoords.tl.x - 13
+        this.pointer.y = this.bubble.oCoords.tl.y - 14 * pointerDetachLevel
+        this.pointer.x = this.bubble.oCoords.tl.x - 13 * pointerDetachLevel
 
         let kw =
           (this.fabricPathText[5][1] - this.fabricPathText[11][1]) /
@@ -299,8 +300,8 @@ export default class BubblePath {
           (this.bubble.oCoords.tr.x - this.bubble.oCoords.tl.x) * (1 - kw)
       } else if (this.fabricPathText[2][1] > this.fabricPathText[5][1]) {
         // pointer right
-        this.pointer.y = this.bubble.oCoords.tr.y - 14
-        this.pointer.x = this.bubble.oCoords.tr.x - 5
+        this.pointer.y = this.bubble.oCoords.tr.y - 14 * pointerDetachLevel
+        this.pointer.x = this.bubble.oCoords.tr.x - 5 * pointerDetachLevel
 
         let kw =
           (this.fabricPathText[5][1] - this.fabricPathText[11][1]) /
@@ -318,7 +319,7 @@ export default class BubblePath {
       this.pointer.y =
         k * (this.fabricPathText[4][2] - this.fabricPathText[2][2]) +
         this.bubble.oCoords.tl.y -
-        10 // center
+        10 * pointerDetachLevel // center
 
       this.x = this.bubble.oCoords.tl.x
       this.y = this.bubble.oCoords.tl.y
@@ -345,7 +346,7 @@ export default class BubblePath {
         this.pointer.x =
           k * (-this.fabricPathText[6][1] + this.fabricPathText[9][1]) +
           this.bubble.oCoords.tl.x -
-          8
+          8 * pointerDetachLevel
         this.w = this.bubble.oCoords.br.x - this.bubble.oCoords.bl.x
 
         this.x = this.bubble.oCoords.tl.x
@@ -357,8 +358,8 @@ export default class BubblePath {
           (this.fabricPathText[4][1] - this.fabricPathText[6][1])
         this.w = (this.bubble.oCoords.br.x - this.bubble.oCoords.bl.x) * kw
 
-        this.pointer.y = this.bubble.oCoords.bl.y - 5
-        this.pointer.x = this.bubble.oCoords.bl.x - 13
+        this.pointer.y = this.bubble.oCoords.bl.y - 5 * pointerDetachLevel
+        this.pointer.x = this.bubble.oCoords.bl.x - 13 * pointerDetachLevel
 
         this.x =
           this.bubble.oCoords.bl.x +
@@ -371,8 +372,8 @@ export default class BubblePath {
           (this.fabricPathText[6][1] - this.fabricPathText[9][1])
         this.w = (this.bubble.oCoords.br.x - this.bubble.oCoords.bl.x) * kw
 
-        this.pointer.y = this.bubble.oCoords.br.y - 5
-        this.pointer.x = this.bubble.oCoords.br.x - 5
+        this.pointer.y = this.bubble.oCoords.br.y - 5 * pointerDetachLevel
+        this.pointer.x = this.bubble.oCoords.br.x - 5 * pointerDetachLevel
 
         this.x = this.bubble.oCoords.tl.x
         this.y = this.bubble.oCoords.tl.y
