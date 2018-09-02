@@ -22,7 +22,7 @@ const bubbleOptions = {
 const pointerOptions = {
   x: 150,
   y: 150,
-  radius: 20,
+  radius: 8,
   color: 'blue',
 }
 
@@ -39,6 +39,10 @@ while (i--) {
   bubbleOptions.x += 250
   pointerOptions.x += 250
 
-  additioanalProps = JSON.parse(JSON.stringify(additioanalProps))
+  additioanalProps = copy(additioanalProps)
   additioanalProps.id = i
+}
+
+function copy(obj) {
+  return JSON.parse(JSON.stringify(obj))
 }
